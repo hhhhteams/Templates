@@ -1,0 +1,94 @@
+﻿<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/main.js"></script>
+<script src="https://static.sharepointonline.com/bld/_layouts/15/16.0.8929.1228/sp.requestexecutor.js"></script>
+<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/jquery.SPServices-2014.01.min.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/render.min.js?updated=07-29-2018-2"></script>
+<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+
+
+<div id="EditTask" class="taskuserpopuptemplate" style="width:1245px;">
+    <div class="panel" ng-cloak>
+        <div class="panel-title">
+            <button type="button" class="close mt-5" data-dismiss="modal" ng-click="cancelEditItem()" style="min-width: 10px;">&times;</button>
+            <h3 class="modal-title">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Gruene'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/logo-gruene.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Gender'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_gender.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='DE'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_de.png" />
+                <img ng-if="AllItemsParentTasks[0].siteType =='DRR'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_drr.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Education'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_education.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='EI'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_ei.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='EPS'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_eps.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Health'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_health.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='QA'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_qa.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Shareweb'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/site_shareweb.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='HHHH'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Foundation/icon_hhhh.png">
+                <img ng-if="AllItemsParentTasks[0].siteType =='Small Projects'" class="icon-sites-img ml-8"
+                     ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/small_project.png">
+                {{ItemDetails.TaskNo}}  {{ItemDetails.Title}} ({{ItemDetails.siteType}})
+                <a class="hreflink" title="Delete" data-toggle="modal" ng-click="deleteTaskFromPopUp()"></a>
+                <span class="pull-right"><page-settings-info webpartid="'TaskPopup'"></page-settings-info></span>
+            </h3>
+
+        </div>
+        <ng-form name="UpdateTaskForm" novalidate role="form">
+            <shareweb-progress-bar progressBarId="CopyPasteuploadImage"></shareweb-progress-bar>
+            <div class="modal-body pad10">
+
+                <div class="col-sm-12 tab-content bdrbox DropUser_Images  PadR0">
+                    <div class="col-sm-12 mt-10">
+                        <div class="col-sm-5 mb-10 padL-0 PadR0" title="Task Name">
+                            <label>Title</label>
+                            <input type="text" class="form-control" placeholder="Task Name" ng-required="true" ng-model="ItemDetails.Title" />
+                            <span class="col-sm-12 text-center ">
+
+                            </span>
+                        </div>
+                        <div class="col-sm-2 text-center mb-10 padL-0">
+                            <label></label>
+                            <div>
+                                <img src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/Arrow_Right.png" title="Move title right to left" data-toggle="popover" data-trigger="hover" ng-click="LeftToRightBoxes();">
+                            </div>
+                        </div>
+                        <div class="col-sm-5 mb-10 padL-0">
+                            <label> Duplicate Title</label>
+                            <input type="text" class="form-control" ng-model="DuplicateTitle" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </ng-form>
+    </div>
+
+    <!--*****************************************************************************************************************************************************-->
+    <div class="ItemInfo" style="padding-top:15px;">
+        <div>Created <span>{{ItemDetails.Created}}</span> by <span class="footerUsercolor">{{ItemDetails.Author.Title}}</span></div>
+        <div>Last modified <span>{{ItemDetails.Modified}}</span> by <span class="footerUsercolor">{{ItemDetails.Editor.Title}}</span></div>
+
+    </div>
+    <!--*****************************************************************************************************************************************************-->
+    <div class="modal-footer">
+
+        <span>
+            <a class="ForAll hreflink" target="_blank" ng-if="ItemDetails.siteType!='Master Tasks'" ng-href="{{CurrentSubSiteUrl}}/SitePages/Task-Profile.aspx?taskId={{ItemDetails.Id}}&Site={{ItemDetails.siteType}} "><img class="mb-3 right-icon icon_siz19" ng-src="/_layouts/15/images/ichtm.gif?rev=23" /> Go to profile page</a>
+            <a class="ForAll hreflink" target="_blank" ng-if="ItemDetails.siteType=='Master Tasks'" ng-href="{{CurrentSubSiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{ItemDetails.Id}} "><img class="mb-3 right-icon icon_siz19" ng-src="/_layouts/15/images/ichtm.gif?rev=23" /> Go to profile page</a>
+        </span>||<a ng-href="mailto:?subject=[{{Item.siteType}}-Tasks] {{ItemDetails.Title}}&body={{Descriptiondata}}%0A{{baseUrl}}/SitePages/Task-Profile.aspx?taskId={{ItemDetails.Id}}%26Site={{Allsitetype}}"><img class="mail-width" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/icon_maill.png" />Share this task</a> ||<a target="_blank" ng-if="ItemDetails.siteType!='Offshore Tasks'" ng-href="{{CurrentSiteUrl}}/Lists/{{ItemDetails.siteType}}/EditForm.aspx?ID={{ItemDetails.Id}}">Open out-of-the-box form</a>
+        <a target="_blank" ng-if="ItemDetails.siteType=='Offshore Tasks'" ng-href="{{CurrentSiteUrl}}/Lists/SharewebQA/EditForm.aspx?ID={{ItemDetails.Id}}">Open out-of-the-box form</a>
+
+        <button type="button" class="btn btn-primary" ng-click="AddItems()">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelEditItem()">Cancel</button>
+    </div>
+    
+
+</div>

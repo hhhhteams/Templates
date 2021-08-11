@@ -1,0 +1,166 @@
+﻿<style>
+    .selectedView {
+        background: #eee;
+        padding: 4px;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #069 !important;
+        background-color: #eee !important;
+        padding: 14px 12px 6px !important;
+    }
+
+    .close:hover, .close:focus {
+        color: #069 !important;
+    }
+
+    .modal-title {
+        color: #069 !important;
+        font-weight: bold !important;
+    }
+
+    button.close {
+        padding: 2px;
+    }
+
+    .contact-form {
+        margin-top: 22px;
+    }
+
+        .contact-form .textarea {
+            min-height: 220px;
+            resize: none;
+        }
+
+  
+    .form-control-feedback {
+        line-height: 50px;
+    }
+
+  
+  
+
+    .form-control-feedback {
+        line-height: 50px;
+        top: 0px;
+    }
+
+    #head {
+        padding-top: 16px !important;
+        font-weight: bold !important;
+        margin-left: 15px !important;
+        font-size: 18px !important;
+        text-align: left !important;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    #form-brdr:active {
+        border: 1px solid #069 !important;
+    }
+
+    #form-brdr {
+        border: 1px solid #a6a6a6;
+    }
+    .panel-url {
+        padding-left: 0px;
+        font-size: 16px;
+        margin-top: 0px;
+    }
+        .dropdown-menu > li > a {
+        display: inline;
+    }
+
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: transparent;
+        }
+   .container h4 {
+        font-size:16px;
+        font-weight:bold;
+    }
+  
+.table tbody > tr > td, .table thead > tr > th {
+            font-size: 14px;
+        }
+        button#fullscreen-1, button#fullscreen-2, button#fullscreen-3, button#fullscreen-4, button#fullscreen-5, button#fullscreen-6, button#fullscreen-7, button#fullscreen-8, button#fullscreen-9 {
+    position: absolute;
+    right: 0px;
+    border-left: 1px solid #ccc;
+}
+</style>
+<!--<span id="new" class="glyphicon glyphicon-menu-hamburger pull-right" style="cursor:pointer;"></span>-->
+<div ng-cloak>
+    <div class="panel panel-default" ng-cloak>
+		<ng-form name="SharewebFeedback" novalidate role="form">
+			<div class="modal-header">
+				<div class="panel-title">
+					<button type="button" class="close" ng-click="cancelFeedback();" style="min-width: 10px;">&times;</button>
+					<h3 class="modal-title">Add your feedback - {{PageHeader}}​​​</h3>
+
+
+				</div>
+			</div>
+			<div class="panel-body tab-content">
+				<div id="table-wrapper">
+					<div id="table-scroll">
+						<div class="form-group inner-tabb col-sm-12">
+							<div>
+								<div class="form-group">
+									<div>
+										<label class="full_width">Page Url</label>
+										<h3 class="panel-url"><span class="panel-text">{{PageUrl}}​​​</span></h3>
+                                    </div>
+								</div>
+								<form role="form" id="contact-form" class="contact-form">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="form-brdr" name="Title" id="title" placeholder="Title" ng-model="Title" ng-required="true">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div class="forFullScreenButton" id="editDescriptionbody" ng-model="editDescription"></div>
+											</div>
+
+										</div>
+									</div>
+									<div class="row">
+										<div id="table-wrapper">
+											<div class="col-md-12">
+												<table class="container-new table table-hover" cellspacing="0" width="100%">
+													<thead>
+                                                        <tr class="header" ng-show="AllTasks!='undefined' && AllTasks.length>0">
+                                                            <th class="col-md-6">Title</th>
+                                                            <th class="col-md-6">Status</th>
+                                                        </tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="item in AllTasks">
+															<td class="col-md-6"><a ng-href="{{baseUrl}}/team/Pages/Manage/Task-Profile.aspx?taskId={{item.Id}}" target="_blank">{{item.Title}}</a></td>
+															<td class="col-md-6">{{item.Status}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-disabled="SharewebFeedback.$error.required" ng-click="ADDFeedback()">Save</button>
+			</div>
+
+		</ng-form>
+    </div>   
+</div>

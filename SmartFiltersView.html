@@ -1,0 +1,982 @@
+<script src="/sites/HHHHTeams/Style%20Library/js/angular/Services/alasql.min.js"></script>
+<script type="text/javascript" src="/sites/HHHHTeams/Style%20Library/js/angular/Services/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/sites/HHHHTeams/Style%20Library/js/angular/Services/daterangepicker.css" />
+<script src="/sites/HHHHTeams/Style%20Library/js/angular/Templates/ExpandTable.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.togglecontent').attr('style', 'display:block');
+        $('[data-toggle="popover"]').popover();
+        $("#tabs").tabs();
+    });
+</script>
+<style>
+    .section-event .table > thead .searchclear {
+    right: 11px !important;
+    top: 15px !important;
+    font-size: 12px !important;
+    font-weight: 600; 
+}
+    i.fa.fa-caret-up {
+    font-size: 18px;
+}
+    .Column_TaskID {
+    width: 7%;
+}
+
+.Column_Title {
+    width: 14%;
+}
+
+.Column_Component {
+    width: 9%;
+}
+
+.Column_Categories {
+    width: 6%;
+}
+
+.Column_Percentage {
+    width: 4%;
+}
+
+.Column_Priority {
+    width: 5%;
+}
+
+.Column_ModifyDate {
+    width: 9%;
+}
+
+.Column_DueDate {
+    width: 7%;
+}
+
+.Column_ClearAll {
+    width: 4%;
+}
+
+.Column_Compare {
+    width: 7%;
+}
+
+.arrow_down {
+    margin-left: 0px !important;
+}
+ .border-right2{ border-right: 2px solid #ccc;}
+.section-event th div{padding: 7px 7px !important;}
+    #pageTitle a { display: none !important;}
+    .accordin-header {background-color: #ffffff;}
+    .advancesearch .time .tooltipte .tooltiptext {left: -660px !important;}
+    .advsearch.ui-tabs .ui-tabs-panel{border:transparent !important;}
+    .advsearch #tabs .nav-pills > li.active > a,#tabs .nav-pills > li > a{padding: 11px 21px;}
+    .advsearch.ui-tabs .ui-tabs-nav li.ui-state-default.ui-corner-top {padding: 0px 0px !important;}
+    .ndcoment { padding: 36px; margin: 10px; border: 1px dashed #ccc; }
+    .SmartMetaSearchpage  .glyphicon,.SmartMetaSearchpage .glyphicon_active{ right: -10px !important;}
+    .SmartMetaSearchpage .glyphicon-cog.settingicon{position: unset!important;}
+    .border-line hr {
+    margin: 5px auto;
+    border-top: 1px solid #ccc;}
+.user-image-round{
+width: 20px;
+height: 20px;
+border-radius:50px;
+}
+img.compare-button-icon {
+    width: 15px;
+}
+#AddSmartfaviratesfilterpoup .indicator_search td:nth-child(4),#AddSmartfaviratesfilterpoup .indicator_search td:nth-child(3)  {
+    width: 11%;
+}
+#AddSmartfaviratesfilterpoup .indicator_search td:first-child,#AddSmartfaviratesfilterpoup .indicator_search td:nth-child(2) {
+    width: 15%;}
+button.compare-component-btn {
+    min-width: 32px;
+    max-width: 32px;
+    width: 32px;
+    padding: 4px;
+}
+    #contentRow {
+        padding-top: 0px !important;
+        margin-top: -15px;
+    }
+    .mt--2 { margin-top: -2px !important;
+}
+
+    .SmartMetaSearchpage .page-content {
+        top: 3px !important;
+        font-size: 13.5px;
+    }
+
+    .taskprofilepagegreen.tdrows {
+        color: #228b22;
+    }
+
+  #s4-bodyContainer {
+        margin: 0 auto;
+        width: 80% !important;
+    }
+
+   .SmartMetaSearchpage .left64 {
+        left: 64px !important;
+    }
+
+   .SmartMetaSearchpage #myDropdown1 button,
+   .SmartMetaSearchpage  #myDropdown2 button {
+        min-width: 4.5em
+    }
+
+    .SmartMetaSearchpage .dropdown-content {
+        position: absolute;
+        background-color: #f6f6f6;
+        max-width: 220px;
+        border: 1px solid #ddd;
+        z-index: 1;
+        margin-left: 5px;
+    }
+    .crossicon{
+        margin-top: -4px;margin-left: 18px;
+    }
+
+    .SmartMetaSearchpage h5.title {
+        margin-bottom: 2px;
+        margin-top: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #000066 !important;
+    }
+#AddSmartfaviratesfilterpoup .page-content{ font-size: 13.5px;   top: 3px !important;}
+    .SmartMetaSearchpage .expandtableicon {
+    position: absolute;
+    z-index: 999;
+    right: 1%;
+    top: 30px;
+}
+
+    .mheight {
+        min-height: 300px;
+    }
+    .bg-f5{background-color: #f5f5f5;}
+    .ml--30{margin-left: -30px !important;}
+    .ml--20{margin-left: -20px !important;}
+    .SmartMetaSearchpage .daterangepicker .drp-calendar {
+    min-width: 335px !important;
+}
+.ui-tabs .ui-tabs-nav li.ui-state-default.ui-corner-top {
+    padding: 2px 0px !important;
+}
+.SmartMetaSearchpage .tab-content {
+    border: 1px solid #ccc;
+}
+.advancesearch.SmartMetaSearchpage .accordin-header .togglecontent {
+    background: #f5f5f5;
+    clear: both;
+    padding: 5px 0px;
+    margin: 5px 0px;
+}
+.th_filtericon {
+    left: 34px;
+    margin-top: -25px;
+}
+.filter-iconfil i.fa.fa-filter {
+    font-size: 20px;
+    color: #ccc;
+}
+</style>
+
+<div  ng-cloak class="Component advancesearch SmartMetaSearchpage">
+ <div class="tab-content pad10 clearfix">
+    <a ng-show="IsSmartFilters" class="pull-right hreflink bold" title="Go to Smart Favorites" ng-click="OpenSmartfavorites('SmartFavorites')">Go to Smart Favorites</a>
+    <div ng-show="IsSmartFilters" class="ui-widget-content ui-corner-bottom">
+        <div class="col-sm-12 form-group accordin-header mt-10">
+            <div class="col-sm-12 padL-0">
+              <a ng-show="!Isupdated" alt="" ng-click="showAllaccordion()"><i class="fa fa-caret-up hreflink"></i> </a>
+                <span class="pull-left ml-4" ng-show="Isupdated">
+                    <img ng-if="!IsExpendAll"  ng-click="expendedAll(true)" class="hreflink wid10" title="Expand all accordions"
+                        ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                         <img ng-if="IsExpendAll" ng-click="expendedAll(false)" class="hreflink wid10" title="Collapse all accordions"
+                        ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/list-icon.png">
+                        
+                </span>
+                <span ng-show="globalItem.GlobalSearch" class="ml-10">
+                    Keywords<span class="font-normal"> : {{globalItem.GlobalSearch}}</span><span
+                        ng-show="ShowSelectdSmartfilter.length > 0"> | </span>
+                </span>
+                <span  ng-repeat="obj in ShowSelectdSmartfilter" class="no-padding">
+                   <span ng-if="obj.Title =='Foundation'">MS Teams</span><span ng-if="obj.Title !='Foundation'"> {{obj.Title}} </span><span class="font-normal">{{obj.selectTitle}}</span><span
+                        ng-show="$index != (ShowSelectdSmartfilter.length -1)"> | </span>
+                </span>
+                 <span class="pull-right" ng-show="!Isupdated">
+                    <label ng-show="AllComponetsData == 0">
+                        Showing 0 of
+                        {{Tasks.length}}
+                    </label>
+                    <label ng-show="AllComponetsData.length>0">
+                        Showing {{AllComponetsData.length}} of
+                        {{Tasks.length}}
+                    </label>
+           
+            </span>
+            </div>
+            <div class="col-sm-6 pl-10 mt-5" ng-show="Isupdated">
+                <input type="text" id="searchinput"  class="form-control searchbox_height" placeholder="Keywords"
+                    ng-model="globalItem.GlobalSearch">
+                <span class="searchclear" ng-click="clearControl('searchinput')"
+                    ng-show="globalItem.GlobalSearch">X</span>
+    
+            </div>
+            <div class="col-sm-3 padL-0 mt-5" ng-show="Isupdated">
+                    <label ng-show="AllComponetsData == 0">
+                        Showing 0 of
+                        {{Tasks.length}}
+                    </label>
+                    <label ng-show="AllComponetsData.length>0">
+                        Showing {{AllComponetsData.length}} of
+                        {{Tasks.length}}
+                    </label>
+           
+            </div>
+          
+            <div class="col-sm-3 text-right mt-5 padL-0 PadR0" ng-show="Isupdated">
+              
+                <button type="button" class="btn btn-primary  hreflink " title="Update" ng-click="Searchtasks()"
+                    title="Update Filter">
+                    Update Filter
+                </button>
+    
+              
+                <button type="button" class="btn btn-grey" title="Clear All"
+                    ng-click="ClearFilters('SearchComponent')">
+                    Clear Filters
+                </button>
+               
+    
+            </div>
+            <div class="col-sm-12 mt-10 pl-10 PadR0" ng-show="Isupdated">
+                <span class="mr-5">
+          
+                  <input class="radio-inline" ng-checked="advanceValueAll=='Allwords'"
+                      ng-click="updateAdvanceFilterAll('Allwords')" type="radio" name="advanced" value="Allwords" /> All
+                  words
+                  <input class="radio-inline" ng-checked="advanceValueAll=='Anywords'"
+                      ng-click="updateAdvanceFilterAll('Anywords')" type="radio" name="advanced" value="Anywords" /> Any
+                  words
+                  <input class="radio-inline" ng-checked="advanceValueAll=='ExactPhrase'" ng-checked=""
+                      ng-click="updateAdvanceFilterAll('ExactPhrase')" type="radio" name="advanced" value="ExactPhrase" />
+                  Exact Phrase
+              </span>
+              <span class="ml-4 mr-5">|</span>
+                  <span class="ml-4">
+                      <input class="radio-inline" ng-checked="updateFilterAll=='Title'" ng-click="updateFilter('Title')"
+                          type="radio" name="advanceds" value="Title" /> Title
+          
+                      <input class="radio-inline" ng-checked="updateFilterAll=='Allfields'"
+                          ng-click="updateFilter('Allfields')" type="radio" name="advanceds" value="Allfields" /> All
+                      fields
+                  </span>
+                 
+                  <span class="ml-4">
+                      ({{ShowSelectdformpopupfile}})
+                  </span>
+    
+                  <span ng-show="showsettingicon==true" class="blue-clr glyphicon glyphicon-cog settingicon hreflink" ng-click="OpenfilterData();"
+                  title="Advanced Search">
+              </span>
+              <span ng-show="showsettingicon==false" class=" grayclr glyphicon glyphicon-cog settingicon hreflink "   ng-click="OpenfilterData();" title="Advanced Search">
+              </span>
+              <span class="ml-4 mr-5">|</span>
+              <label class="mr-5 ml-4">
+                <input type="checkbox" class="no-padding mr-5 mt--2" ng-model="IsItem" ng-click="SeleteQuickfilter('Portfolio Type',IsItem,'Component')" name="rating">Component
+            </label>
+            <label class="mr-5 ml-4" >
+                <input type="checkbox" class="no-padding mr-5 mt--2" ng-model="IsItem2" ng-click="SeleteQuickfilter('Portfolio Type',IsItem2,'Service')"  name="rating">Service
+            </label>
+            <span class="ml-4 mr-5">|</span>
+            <label class="mr-5" >
+                <input type="checkbox" class="no-padding mr-5 mt--2" ng-model="IsItem1" ng-click="SeleteQuickfilter('Type',IsItem1)" name="rating">Task Items
+            </label>
+              <a class="pull-right hreflink blue-clr" ng-click="AddSmartFavorites()" ng-disabled="!globalItem.GlobalSearch || ShowSelectdSmartfilter.length == 0">
+                Add Smart Favorite
+              </a>
+          </div>
+    
+        </div>
+        <div class="col-sm-12 padding-0 mb-5" ng-show="Isupdated && !isGmbh">
+            <div class="accordin-header mb-0">
+                <input class="toggle-box-content" id="identifier1txt" type="checkbox">
+                <label for="identifier1txt" class="pad-5">
+                    <span>
+                        <img class="hreflink wid-18" title="Filter"
+                            ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/Filter-12-WF.png">
+                            Sites
+                    </span>
+                </label>
+                <div class="mb0">
+                    <div class="togglecontent" style="{{itemdisplay?'display:inline;':'display:none;'}}">
+                        <div class="container p0 mt-10 smartSearch-Filter-Section">
+                            <table width="100%" class="indicator_search mt-10">
+                                <tr>
+                                    <td valign="top" ng-show="item=='Shareweb' || item=='Offshore Tasks' || item=='Foundation' || item=='Team'" ng-repeat="item in filterGroups">
+                                        <fieldset>
+                                            <legend ng-show="item !='Foundation'"><span><input type="checkbox" ng-model="value" class="icon-input mt-0 ml2" ng-click="getMoreFilterTask(item,value)" /> {{item}}</span></legend>
+                                            <legend ng-show="item =='Foundation'"><span><input type="checkbox" ng-model="value" class="icon-input mt-0 ml2" ng-click="getMoreFilterTask(item,value)" /> MS Teams</span></legend>
+                                        <div class="add_box" ng-show="filterItem.Group == item" ng-repeat="filterItem in filterItems">
+                                            <span class="plus-icon hreflink"
+                                                ng-show="filterItem.childs.length>0 && !filterItem.expanded"
+                                                ng-click="loadMoreFilters(filterItem);">
+                                                <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                            </span>
+                                            <span class="plus-icon hreflink"
+                                                ng-show="filterItem.childs.length>0 && filterItem.expanded"
+                                                ng-click="loadMoreFilters(filterItem);">
+                                                <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                            </span>
+                                            <span ng-show="filterItem.TaxType!='Status'">
+                                                <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                    ng-click="getMoreFilterTask(filterItem)" />
+                                                {{filterItem.Title}}
+                                            </span>
+                                            <span ng-show="filterItem.TaxType=='Status'">
+                                                <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                    ng-click="getMoreFilterTask(filterItem)" />
+                                                {{filterItem.Title}}
+                                            </span>
+                                            <ul id="id_{{filterItem.Id}}"
+                                                style="{{filterItem.expanded?'display:block;':'display:none;'}}"
+                                                class="subfilter">
+                                                <li ng-repeat="child1 in filterItem.childs">
+                                                    <span class="plus-icon hreflink"
+                                                        ng-show="child1.childs.length>0 && !child1.expanded"
+                                                        ng-click="loadMoreFilters(child1);">
+                                                        <img
+                                                            ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                                    </span>
+                                                    <span class="plus-icon hreflink"
+                                                        ng-show="child1.childs.length>0 && child1.expanded"
+                                                        ng-click="loadMoreFilters(child1);">
+                                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                                    </span>
+                                                    <input type="checkbox" class="icon-input mt-0" ng-model="child1.Selected"
+                                                        ng-click="getMoreFilterTask(child1)" /> {{child1.Title}}
+        
+                                                    <ul id="id_{{child1.Id}}" style="display:none;" class="subfilter">
+                                                        <li ng-repeat="child2 in child1.childs">
+                                                            <input type="checkbox" style="margin-top: -2px; margin-left:3px;"
+                                                                ng-model="child2.Selected"
+                                                                ng-click="getMoreFilterTask(child2)" /> {{child2.Title}}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+        
+                   
+                </div>
+    
+            </div>
+        </div> 
+        <div class="col-sm-12 padding-0 mb-5" ng-show="Isupdated">
+        <div class="accordin-header mb-0">
+            <input class="toggle-box-content" id="identifier1txt3" type="checkbox">
+            <label for="identifier1txt3" class="pad-5 ">
+                <span>
+                    <img class="hreflink wid-18" title="Filter"
+                        ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/Filter-12-WF.png">
+                        Categories and Status
+                </span>
+              
+                <span class="pull-right" style="width: 2%;">
+                    <span class="hreflink" ng-show="!itemdisplay">
+                        <img class="hreflink wid22" title="Tap to Expand"
+                            ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/Add-New.png">
+                    </span>
+                    <span class="hreflink" ng-show="itemdisplay">
+                       
+                    </span>
+                </span>
+
+            </label>
+            <div class="mb0">
+                <div class="togglecontent">
+                   
+                    <div class="container p0 mt-10 smartSearch-Filter-Section">
+                        <table width="100%" class="indicator_search mt-10">
+                            <tr>
+                                <td valign="top" ng-show="item!='Team Member'&&( item !='Shareweb' && item !='Foundation' && item !='Team' && item !='Offshore Tasks') && item !='Design Team' && item !='QA Team' && item !='HHHH Team' && item !='Smalsus Senior Team' && item !='Developer Team'" ng-repeat="item in filterGroups">
+                                    <fieldset>
+                                        <legend ng-show="item!='teamSites'"><span><input type="checkbox" ng-model="value" class="icon-input mt-0 ml2" ng-click="getMoreFilterTask(item,value)" /> {{item}}</span></legend>
+                                        <legend ng-show="item=='teamSites'"><span><input type="checkbox" class="icon-input mt-0 ml2" ng-model="value" /> Sites</span></legend>
+                                        <div ng-show="filterItem.Group == item" class="add_box" ng-repeat="filterItem in filterItems | orderBy : 'TaxType'">
+                                            <span class="plus-icon hreflink"
+                                                ng-show="filterItem.childs.length>0 && !filterItem.expanded"
+                                                ng-click="loadMoreFilters(filterItem);">
+                                                <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                            </span>
+                                            <span class="plus-icon hreflink"
+                                                ng-show="filterItem.childs.length>0 && filterItem.expanded"
+                                                ng-click="loadMoreFilters(filterItem);">
+                                                <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                            </span>
+                                            <span ng-show="filterItem.TaxType!='Status'">
+                                                <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                    ng-click="getMoreFilterTask(filterItem)" />
+                                                {{filterItem.Title}}
+                                            </span>
+                                            <span ng-show="filterItem.TaxType=='Status'">
+                                                <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                    ng-click="getMoreFilterTask(filterItem)" />
+                                                {{filterItem.Title}}
+                                            </span>
+                                            <ul id="id_{{filterItem.Id}}"
+                                                style="{{filterItem.expanded?'display:block;':'display:none;'}}"
+                                                class="subfilter">
+                                                <li ng-repeat="child1 in filterItem.childs | orderBy : 'TaxType'">
+                                                    <span class="plus-icon hreflink"
+                                                        ng-show="child1.childs.length>0 && !child1.expanded"
+                                                        ng-click="loadMoreFilters(child1);">
+                                                        <img
+                                                            ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                                    </span>
+                                                    <span class="plus-icon hreflink"
+                                                        ng-show="child1.childs.length>0 && child1.expanded"
+                                                        ng-click="loadMoreFilters(child1);">
+                                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                                    </span>
+                                                    <input type="checkbox" class="icon-input mt-0" ng-model="child1.Selected"
+                                                        ng-click="getMoreFilterTask(child1)" /> {{child1.Title}}
+        
+                                                    <ul id="id_{{child1.Id}}" style="display:none;" class="subfilter">
+                                                        <li ng-repeat="child2 in child1.childs | orderBy : 'Title'">
+                                                            <input type="checkbox" style="margin-top: -2px; margin-left:3px;"
+                                                                ng-model="child2.Selected"
+                                                                ng-click="getMoreFilterTask(child2)" /> {{child2.Title}}
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-12 padding-0 mb-5" ng-show="Isupdated">
+        <div class="accordin-header mb-0">
+            <input class="toggle-box-content" id="identifier1txt1" type="checkbox">
+            <label for="identifier1txt1" class="pad-5">
+                
+                <span>
+                    <img class="hreflink wid-18" title="Filter"
+                        ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/Filter-12-WF.png">
+                        Team Members
+                </span>
+               
+            </label>
+            <div class="mb0">
+                <div class="togglecontent" style="{{itemdisplay?'display:inline;':'display:none;'}}">
+                    <div class="col-sm-12 pad10 text-left ">
+                   
+                        <label class="mr-5">
+                            <input type="checkbox"  ng-model="ItemCreateByTitle"   class="no-padding mr-5 mt--2" ng-click="SeleteUserItem('CreateByTitle')" name="rating">Created by 
+                        </label>
+                   
+                
+                        <label class="mr-5">
+                            <input type="checkbox"  ng-model="ItemModifiedByTitle"  class="no-padding mr-5 mt--2" ng-click="SeleteUserItem('ModifiedByTitle')" name="rating">Modified by 
+                        </label>
+                
+                 
+                        <label>
+                            <input type="checkbox"  ng-model="ItemTeamLeaderTitle"  class="no-padding mr-5 mt--2" ng-click="SeleteUserItem('TeamLeader')" name="rating">Assigned to
+                        </label>
+                       
+                </div>
+                    <div class="container p0 smartSearch-Filter-Section">
+                        <table width="100%" class="indicator_search mt-10">
+                            <tr>
+                                <td valign="top" ng-if="item=='Developer Team' || item=='Smalsus Senior Team' || item=='HHHH Team' || item=='QA Team' || item=='Design Team'" ng-repeat="item in filterGroups1">
+                                    <fieldset>
+                                    <legend ng-show="item!='teamSites'"><span><input type="checkbox" ng-model="value" class="icon-input mt-0 ml2" ng-click="getMoreFilterTask(item,value)" /> {{item}}</span></legend>
+                                    <legend ng-show="item=='teamSites'"><span><input type="checkbox" ng-model="value" class="icon-input mt-0 ml2" ng-click="getMoreFilterTask(item,value)" /> Sites</span></legend>
+                                    <div class="add_box" ng-show="filterItem.Group == item" ng-repeat="filterItem in filterItemsNew">
+                                        <span class="plus-icon hreflink"
+                                            ng-show="filterItem.childs.length>0 && !filterItem.expanded"
+                                            ng-click="loadMoreFilters(filterItem);">
+                                            <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                        </span>
+                                        <span class="plus-icon hreflink"
+                                            ng-show="filterItem.childs.length>0 && filterItem.expanded"
+                                            ng-click="loadMoreFilters(filterItem);">
+                                            <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                        </span>
+                                        <span ng-show="filterItem.TaxType!='Status'">
+                                            <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                ng-click="getMoreFilterTask(filterItem)" />
+                                            {{filterItem.Title}}
+                                        </span>
+                                        <span ng-show="filterItem.TaxType=='Status'">
+                                            <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                ng-click="getMoreFilterTask(filterItem)" />
+                                            {{filterItem.Title}}
+                                        </span>
+                                        <ul id="id_{{filterItem.Id}}"
+                                            style="{{filterItem.expanded?'display:block;':'display:none;'}}"
+                                            class="subfilter">
+                                            <li ng-repeat="child1 in filterItem.childs">
+                                                <span class="plus-icon hreflink"
+                                                    ng-show="child1.childs.length>0 && !child1.expanded"
+                                                    ng-click="loadMoreFilters(child1);">
+                                                    <img
+                                                        ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                                </span>
+                                                <span class="plus-icon hreflink"
+                                                    ng-show="child1.childs.length>0 && child1.expanded"
+                                                    ng-click="loadMoreFilters(child1);">
+                                                    <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                                </span>
+                                                <input type="checkbox" class="icon-input mt-0" ng-model="child1.Selected"
+                                                    ng-click="getMoreFilterTask(child1)" /> {{child1.Title}}
+    
+                                                <ul id="id_{{child1.Id}}" style="display:none;" class="subfilter">
+                                                    <li ng-repeat="child2 in child1.childs">
+                                                        <input type="checkbox" style="margin-top: -2px; margin-left:3px;"
+                                                            ng-model="child2.Selected"
+                                                            ng-click="getMoreFilterTask(child2)" /> {{child2.Title}}
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+    
+              
+            </div>
+
+        </div>
+    </div>
+
+  
+        <div class="col-sm-12 padding-0 mb-5" ng-show="Isupdated">
+        <div class="accordin-header mb-0">
+            <input class="toggle-box-content"
+                id="identifier1txt2" type="checkbox">
+            <label for="identifier1txt2" class="pad-5 ">
+               
+                <span>
+                    <img class="hreflink wid-18" title="Filter"
+                        ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/Shareweb/Filter-12-WF.png">
+                        Date
+                </span>               
+            </label>
+              <div class="mb0 clearfix">
+                      <div class="togglecontent clearfix" style="{{itemdisplay?'display:inline;':'display:none;'}}">
+                    <div class="col-sm-12 mt-10"> 
+                    <div class="col-sm-8 no-padding border-right2 ">
+                         <div class="col-sm-12 padL-0 mb-5">
+                            <label class="mr-5">
+                                <input type="checkbox" value="Created" ng-model="ItemCreated" class="mt--2"  ng-click="SeleteDateItem('Created')" name="rating"> Created Date 
+                            </label>
+                           
+                            <label class="mr-5">
+                                <input type="checkbox" value="Modified" ng-model="ItemModified" class="mt--2" ng-click="SeleteDateItem('Modified')" name="rating"> Modified Date 
+                            </label>
+                
+                            <label>
+                                <input type="checkbox" value="DueDate" ng-model="ItemDueDate" class="mt--2" ng-click="SeleteDateItem('DueDate')" name="rating"> Due Date
+                            </label>
+                       
+                            </div>
+                            <div class="col-sm-12 border-line"><hr></div>
+                        <div class="col-sm-12 padL-0 date_Category-input">
+                            <span><input type="radio" ng-checked="ValueNew =='Today'" ng-click="DatechangeHeader('Today','Presets');" name="dateSelection" id="selectedToday" value="Today">
+                            <label>Today</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='Yesterday'" ng-click="DatechangeHeader('Yesterday','Presets');" name="dateSelection" id="selectedYesterday" value="Yesterday">
+                            <label> Yesterday </label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='ThisWeek'" ng-click="DatechangeHeader('ThisWeek','Presets');" name="dateSelection" id="selectedAll" value="ThisWeek" >
+                            <label> This Week</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='LastWeek'" ng-click="DatechangeHeader('LastWeek','Presets');" name="dateSelection" id="selectedAll" value="LastWeek">
+                            <label> Last 7 Days</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='EntireMonth'" ng-click="DatechangeHeader('EntireMonth','Presets');" name="dateSelection" id="selectedAll" value="EntireMonth">
+                            <label>This Month</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='LastMonth'" ng-click="DatechangeHeader('LastMonth','Presets');" name="dateSelection" id="selectedAll" value="LastMonth">
+                            <label>Last 30 Days</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='EntireYear'"  ng-click="DatechangeHeader('EntireYear','Presets');" name="dateSelection" value="EntireYear">
+                            <label>This Year</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='LastYear'" ng-click="DatechangeHeader('LastYear','Presets');" name="dateSelection" value="LastYear">
+                            <label>Last Year</label></span>
+                            <span><input type="radio" ng-checked="ValueNew =='Custom'" ng-click="DatechangeHeader('Custom','Presets');" name="dateSelection" value="Custom">
+                            <label>Custom</label></span>                        
+                        </div>
+                        </div>
+
+                      <div class="col-sm-4 pb-10 PadR-0">
+                        <div class="col-sm-5 padL-0">
+                            <div class=""><label>Start Date</label></div>
+                            <div   class="has-feedback">
+                                <input type="text" placeholder="dd/mm/yyyy" class="form-control date-picker" id="txtDate"
+                                    ng-model="Item" />
+                                <i class="fa fa-calendar form-control-feedback mt-10"></i>
+                            </div>                           
+                        </div>
+                        <div class="col-sm-5 padL-0">
+                            <div  class=""><label>End Date</label></div>
+                            <div class="has-feedback has-feedback">
+                                <input type="text" placeholder="dd/mm/yyyy" class="form-control" id="txtDate1"
+                                    ng-model="Item1"/>
+                                <i class="fa fa-calendar form-control-feedback mt-10" ></i>
+                            </div>
+                        </div>  
+                        <div class="col-sm-2 padL-0 padR-0">
+                    
+                               <label class="hreflink mt-20" title="Clear Date Filters" ng-click="resetItem()">Clear</label>
+                        
+                        </div> 
+                        </div>  
+                   </div>
+                </div>
+</div>
+        </div>
+    </div>
+
+
+    </div>
+    <a ng-show="IsSmartFavorites" class="pull-right hreflink bold" title="Go to Smart Filters" ng-click="OpenSmartfavorites('SmartFilters')" >Go to Smart Filters</a>
+    <div ng-show="IsSmartFavorites" class="ui-widget-content ui-corner-bottom" id="TimeInfo">
+        
+        <div class="col-sm-12 padL-0 PadR0">
+                <div class=" text-center mb-15 mt-10" ng-show="SmartFavoritesConfig.length==0">No Smart favorites items available</div>
+                <div class=" d-flex mb-5 mt-5 bdrbox for-c0l pad10" ng-repeat="obj in SmartFavoritesConfig">
+                    <span class="ml-10" >
+                    <a type="button" class="hreflink" title={{obj.Title}}
+                        ng-click="FilterFavoritesTask(obj.SelectedFavorites,SmartFavoritesConfig,$index)">
+                        {{obj.Title}}
+                    </a>
+                    <a title="open in new tab smart favorite" target="_blank" class="hreflink" ng-href="{{CurrentPageWithUrl}}.aspx?SmartfavoriteId={{obj.FavoriteId}}"><img class="img-focus" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_inline.png"></a>
+                    <a class="hreflink" title="Edit" data-toggle="modal" ng-click="EditFavoritesItem(obj,AdminsiteConfig)">
+                        <img class="img-focus mt-5" src="/_layouts/images/edititem.gif">
+                    </a>
+                   
+                    <img class="w-16 hreflink" title="Add Smart Favorite "
+                    ng-click="removeSmartFavorites(obj,obj.FavoriteId)"
+                    ng-src="/_layouts/images/delete.gif">
+            
+                </span>
+                <span ng-if="obj.isShowEveryone" class="pull-right"><strong>Everyone</strong></span>
+                <span ng-if="!obj.isShowEveryone" class="pull-right"><strong>Only Me</strong></span>
+                </div>
+
+        </div>
+    </div>
+ </div>
+
+        </div>
+      
+    <div id="SelectionData" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="panel-title">
+                    <button type="button" class="close mt-5" data-dismiss="modal"
+                        ng-click="cancelopenCreateItem1('SelectionData')" style="min-width: 10px; margin-left: 10px;">
+                        &times;
+                    </button>
+
+                    <h3>
+                        Selected Items
+                        <span class="pull-right">
+                            <page-settings-info webpartid="'sharewebSelectedItemsPopup'"></page-settings-info>
+                        </span>
+                    </h3>
+                </div>
+                <div class="modal-body ">
+                    <div class="col-sm-12 ">
+                        <div class="col-sm-12  tab-content bdrbox">
+                            <div class="divPanelBody mt-10 mb-10 fortablee  col-sm-12">
+                                <div id="portfolio" class="section-event pt-0">
+                                    <ul class="table">
+                                        <li class="for-lis">
+                                            <span ng-show="isCreatePopup ||isCreateActivity">
+                                                <span class="large-bold"
+                                                    ng-bind-html="GetColumnDetails('Add Button') | trustedHTML">
+                                                </span>
+                                            </span>
+                                            <span ng-show="isComparePopup">
+                                                <span class="large-bold">
+                                                    More than 2 Items selected, Select only 2 Items to compare
+                                                </span>
+                                            </span>
+
+                                        </li>
+                                        <li class="for-lis  tdrows" ng-repeat="item in SelectedDataItem track by $index"
+                                            lvl-drop-target="true" on-drop="dropped(dragSrc,item)">
+                                            <div style="width:6%;" class="padLR">
+                                                <input type="checkbox" ng-click="selectdeselectItems(item);"
+                                                    ng-model="item.select" value="" name="chkSelected" />
+                                            </div>
+                                            <div style="width:7%;" class="padLR">
+                                                <span>
+                                                    <img ng-show="item.Item_x0020_Type =='Component' && pagesType=='Service-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Service_Icons/component_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='SubComponent' && pagesType=='Service-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Service_Icons/SubComponent_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='Feature' && pagesType=='Service-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Service_Icons/feature_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='Component' && pagesType=='Event-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Event_Icons/component_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='SubComponent' && pagesType=='Event-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Event_Icons/SubComponent_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='Feature' && pagesType=='Event-Portfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Event_Icons/feature_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='Component' && pagesType=='componentportfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='SubComponent' && pagesType=='componentportfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                                                    <img ng-show="item.Item_x0020_Type =='Feature' && pagesType=='componentportfolio'"
+                                                        class="icon-sites-img ml-8"
+                                                        ng-src="{{pageContextInfo.siteAbsoluteUrl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+                                                </span>
+                                            </div>
+                                            <div style="width:45%;" class="padLR">
+                                                <span>
+                                                    <a class="hreflink" target="_blank"
+                                                        ng-href="{{pageContextInfo.webAbsoluteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}"
+                                                        ng-bind-html="item.Title">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button ng-show="isComparePopup" type="button" class="btn btn-primary mt-10"
+                        ng-disabled="compareComponents.length!=2" ng-click="submitforCompareComponentsPopup()">
+                        Submit
+                    </button>
+                    <button ng-show="isCreatePopup" type="button" class="btn btn-primary mt-10"
+                        ng-disabled="compareComponents.length!=1" ng-click="openComponentPopup()">
+                        Submit
+                    </button>
+                    <button ng-show="isCreateActivity" type="button" class="btn btn-primary mt-10"
+                        ng-disabled="compareComponents.length!=1" ng-click="CreateActivity()">
+                        Submit
+                    </button>
+                    <button type="button" class="mt-10" ng-click="cancelopenCreateItem1('SelectionData')">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div id="AddSmartfaviratesfilterpoup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="false" style="display: none;">
+        <div class="modal-dialog" style="width: 800px;">
+            <div class="modal-content">
+                <div class="panel-title">
+                    <button type="button" class="close crossicon" data-dismiss="modal" ng-click="cancelAddSmartfaviratesfilter()"
+                        style="min-width: 10px;">
+                        &times;
+                    </button>
+                  
+                    <h3 class="modal-title">
+                        Smart Favorites
+                        <span class="pull-right">
+                            <page-settings-info webpartid="'Smartfavorite'"></page-settings-info>
+                        </span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div class="divPanelBody mt-10 mb-10  col-sm-12 ">
+
+                            <div class="col-sm-12 padL-0">
+                                <label class="lblText col-sm-12 padL-0 PadR0">Title<span class="pull-right">
+                                    <input type="checkbox"   class="no-padding mr-5 mt-0 mb-5" ng-model="isShowEveryone" ng-click="CheckedUncheckedItem(isShowEveryone)" name="rating1">For Everyone
+                                </span>
+                                    
+                                </label>
+                                <input type="text" ng-model="txtTitle" class="form-control" style=" margin-top: -2px;margin-right: 3px;"/>
+                            </div>
+                            <div class="col-sm-12 padL-0 mt-5">
+
+                                <div class="mb0">
+                                    <div class="togglecontent">
+                                    
+                                        <div class="container p0 smartSearch-Filter-Section pl-5">
+                                            <table width="100%" class="indicator_search mt-10">
+                                                <tr>
+                                                    <td valign="top" ng-repeat="item in selectedFiltersItemsGroups">
+                                                        <fieldset>
+                                                            <legend ><span><input type="checkbox" ng-model="value" class="icon-input mt-0" ng-click="getMoreFilterTask(item,value)" /> {{item.Group}}</span></legend>
+                                                            <div ng-show="filterItem.Group == item.Group" class="add_box" ng-repeat="filterItem in filterItems | orderBy : 'Title'">
+                                                                <span class="plus-icon hreflink"
+                                                                    ng-show="filterItem.childs.length>0 && !filterItem.expanded"
+                                                                    ng-click="loadMoreFilters(filterItem);">
+                                                                    <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                                                </span>
+                                                                <span class="plus-icon hreflink"
+                                                                    ng-show="filterItem.childs.length>0 && filterItem.expanded"
+                                                                    ng-click="loadMoreFilters(filterItem);">
+                                                                    <img ng-src="{{siteUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                                                </span>
+                                                                <span ng-show="filterItem.TaxType!='Status'">
+                                                                    <input type="checkbox" class="icon-input mt-0" ng-model="filterItem.Selected"
+                                                                        ng-click="getunchecked(filterItem,Updateitem.SelectedFavorites,filterItem.Selected)" />
+                                                                <span ng-show="filterItem.Group=='Date'">{{filterItem.TitleNew}}</span>  <span ng-show="filterItem.Group!='Date'">{{filterItem.Title}}</span>
+                                                                </span>
+                                                                <span ng-show="filterItem.TaxType=='Status'">
+                                                                    <input type="checkbox" class="icon-input ml-4" ng-model="filterItem.Selected"
+                                                                    ng-click="getunchecked(filterItem,Updateitem.SelectedFavorites,filterItem.Selected)" />
+                                                                    {{filterItem.Title}}
+                                                                </span>
+                                                                <ul id="id_{{filterItem.Id}}"
+                                                                    style="{{filterItem.expanded?'display:block;':'display:none;'}}"
+                                                                    class="subfilter">
+                                                                    <li ng-repeat="child1 in filterItem.childs | orderBy : 'Title'">
+                                                                        <span class="plus-icon hreflink"
+                                                                            ng-show="child1.childs.length>0 && !child1.expanded"
+                                                                            ng-click="loadMoreFilters(child1);">
+                                                                            <img
+                                                                                ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/right-list-icon.png">
+                                                                        </span>
+                                                                        <span class="plus-icon hreflink"
+                                                                            ng-show="child1.childs.length>0 && child1.expanded"
+                                                                            ng-click="loadMoreFilters(child1);">
+                                                                            <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/list-icon.png">
+                                                                        </span>
+                                                                        <input type="checkbox" class="icon-input mt-0" ng-model="child1.Selected"
+                                                                        ng-click="getunchecked(child1,Updateitem.SelectedFavorites,child1.Selected)" /> {{child1.Title}}
+                            
+                                                                        <ul id="id_{{child1.Id}}" style="display:none;" class="subfilter">
+                                                                            <li ng-repeat="child2 in child1.childs | orderBy : 'Title'">
+                                                                                <input type="checkbox" style="margin-top: -2px; margin-left:3px;"
+                                                                                    ng-model="child2.Selected"
+                                                                                    ng-click="getMoreFilterTask(child2)" /> {{child2.Title}}
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <!-- <div  ng-repeat="group in selectedFiltersItemsGroups " class="mt-2">
+                                <span class="col-sm-2 no-padding">{{group.Group}}: </span> 
+                                <span ng-if="group.Group ==item.Group"  ng-repeat="item in selectedFiltersItems " class="mt-2">
+                                
+                                <input type="checkbox" class="mt--2" ng-click="getunchecked(item,selectedFiltersItems,item.Selected);"
+                                        ng-model="item.Selected"> {{item.Title}} <span ng-hide="(selectedFiltersItems.length -1) ==$index">|</span>
+                                </span>
+                                
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  ng-disabled="txtTitle ==undefined" type="button" ng-show="AdminsiteConfig ==undefined && Updateitem ==undefined" class="btn btn-primary mt-10" ng-click="AddSmartfaviratesfilter()">
+                        Add SmartFavorites
+                    </button>
+                    <button  ng-disabled="txtTitle ==undefined" ng-show="AdminsiteConfig.SmartFavoritesConfig.length >=0 && Updateitem ==undefined" type="button" class="btn btn-primary mt-10" ng-click="AddCollectionSmartfaviratesfilter()">
+                        Add SmartFavorites
+                    </button>
+                    <button ng-disabled="txtTitle ==undefined" ng-show="Updateitem !=undefined" type="button" class="btn btn-primary mt-10" ng-click="UpdateSmartfaviratesfilter()">
+                    Update SmartFavorites
+                    </button>
+                    <button type="button" class="mt-10" ng-click="cancelAddSmartfaviratesfilter()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    </div>
+    <div id="advancefilterpoup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelopenfilter()"
+                    style="min-width: 10px;">
+                    &times;
+                </button>
+             
+                <h3 class="modal-title">
+                    Advanced Search Settings
+                    <span class="pull-right">
+                        <page-settings-info webpartid="'advancedSettingsPopup'"></page-settings-info>
+                    </span>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 tab-content bdrbox">
+                    <div class="divPanelBody mt-10 mb-10  col-sm-12 ">
+
+
+                        <div class="col-sm-5 padL-0">
+                            <div class="mb-5">
+                                <input ng-model="SelectAll1" class="mt-0"
+                                    type="checkbox" name="chkCompareContact"
+                                    ng-click="SelectAllItem(SelectAll1)" /><label class="ml-4"> Select All</label>
+                            </div>
+                            <div ng-repeat="item in Filterarray " class="mt-2 Ml-13">
+                                <input type="checkbox" class="mt--2" ng-click="Selectitem(item ,item.Flag);"
+                                    ng-model="item.Flag"> {{item.Value}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mt-10" ng-click="cancelopenfilter1()">
+                    Apply
+                </button>
+                <button type="button" class="mt-10" ng-click="cancelopenfilter()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </div>
+    </div>
+

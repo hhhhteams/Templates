@@ -1,0 +1,292 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+        $("#addConnectTooltabs").tabs();
+        $('#tabs').tabs("option", "active", 0);
+    });
+</script>
+<style>
+    /*************form-group************************/
+    .form-group {
+        margin-bottom: 15px;
+        font-size: 13px;
+    }
+</style>
+<div id="WorkspaceAddAndConnectToolId">
+    <div class="panel panel-default" ng-cloak>
+        <div class="panel-title">
+            <button type="button" class="close" data-dismiss="modal" ng-click="cancelTagDocuments()"
+                    style="min-width: 10px;">
+                &times;
+            </button>
+            <h3>
+                Add & Connect Tool - {{Item.Page_x002d_Title}}
+                <span class="pull-right col-sm-1">
+                    <page-settings-info webpartid="'sharewebAnCToolPopup'"></page-settings-info>
+                </span>
+            </h3>
+        </div>
+        <div class="panel-body" style="padding:0px 5px !important;">
+            <div class="" id="AllAddConnectTabs">
+                <div id="table-wrapper">
+                    <div>
+                        <div class="tabBox clearfix">
+                            <div class="" ng-show="show_Tiles" ng-cloak id="tilesItems">
+                                <div class="col-sm-12 text-center">
+                                    <!-- <a class="smart_search_tiles" id="Document" ng-show="show_document"
+                                       ng-click="showConnectTool('Documents');">
+                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/serachDocuments.png"
+                                             alt="" />
+                                    </a>
+                                    <a class="smart_search_tiles" id="News" ng-show="show_news"
+                                       ng-click="showConnectTool('Announcements');">
+                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/searchNews.png" alt="" />
+                                    </a>
+                                    <a class="smart_search_tiles" id="Links"  ng-show="show_link"
+                                    ng-click="showConnectTool('Website');">
+                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/Links.png" alt="" />
+                                    </a>
+                                    <a class="smart_search_tiles" id="Presentations"  ng-show="show_presentation"
+                                     ng-click="showConnectTool('Presentations');">
+                                        <img ng-src="{{baseUrl}}/SiteCollectionImages/Tiles/Presentation.png" alt="" />
+                                    </a> -->
+                                    <ul class="form-group text-center">
+                                        <a class="news_upload" ng-click="showConnectTool(item.para)" ng-repeat="item in ANC_detailsFinal">
+                                            <div class="content_wrap text-center">
+                                                <div class="permission">{{item.TabTitle}}</div>                                                
+                                                <div class="title_icon">
+                                                    <img src="{{item.url}}" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                       
+                                    </ul>                                    
+                                </div>
+                            </div>
+                            <div ng-show="!show_Tiles" id="addConnectTooltabs" class="exTab3">
+                                <ul class="nav nav-pills">                                  
+                                    <li  ng-show="show_document" >
+                                        <a href="#Document" ng-click="seletedTab('Documents')">Documents </a>
+                                    </li>
+                                    <li  ng-show="show_news" >
+                                        <a href="#News" id="News-tab" ng-click="seletedTab('Announcements')">News </a>
+                                    </li>
+                                    <li  ng-show="show_link">
+                                        <a href="#Links" ng-click="seletedTab('Website')">Links </a>
+                                    </li>
+                                    <li  ng-show="show_presentation">
+                                        <a href="#Presentations" ng-click="seletedTab('Presentations')">Presentation</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="Document" class=" ">
+                                        <div class="container">
+                                            <div class="col-sm-12 webpart-div no-padding" title="Drag Drop Documents">
+                                                <div class="panel panel-default add-connect mb0">
+                                                    <div class="panel-heading ">
+                                                        <h3 class="panel-title">
+                                                            1.Upload New Document
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="col-sm-12">
+                                                            <div id="dropboxLite" class="dropbox">
+                                                                <span>Drag your files here (max. 5 items)</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 text-center">OR</div>
+                                                        <div class="col-sm-12">
+                                                            <input class="form-control ng-pristine ng-invalid ng-invalid-valid-file ng-empty ng-touched"
+                                                                   ng-model="uploaddocFileLite" type="file"
+                                                                   id="uploaddocFileLite" valid-file="">
+                                                        </div>
+                                                        <div class="col-sm-12 ">
+
+                                                            <div class="col-sm-6 PadR0 form-group pull-right">
+                                                                <label class="full_width"></label>
+                                                                <button style="float:right;" type="button"
+                                                                        class="btn btn-primary" ng-disabled="!uploaddocFileLite"
+                                                                        ng-click="CreateProfileDocument('Documents','UploadDocument')">
+                                                                    Upload
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="News" class="">
+                                        <div class="container">
+                                            <div class="col-sm-12 webpart-div padL-0 PadR0">
+                                                <div class="panel panel-default mb0">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            Create News
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <ng-form name="NewsNewForm" novalidate role="form">
+                                                            <div class="form-group col-sm-10 PadR0">
+                                                                <label class="full_width">News Title</label>
+                                                                <input id="linkTitle" style="display:block;"
+                                                                       ng-required="true" class="form-control"
+                                                                       type="text" placeholder="Title"
+                                                                       ng-model="news_Title"
+                                                                       autocomplete="off">
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="col-sm-2 PadR0">
+                                                                <label class="full_width"></label>
+                                                                <button type="button" class="btn btn-primary"
+                                                                        ng-disabled="!news_Title"
+                                                                        ng-click="CreateItem('Announcements')">
+                                                                    Create
+                                                                </button>
+                                                            </div>
+                                                        </ng-form>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div id="Links" class="">
+                                        <div class="container">
+                                            <div class="col-sm-12 no-padding">
+                                                <div class="panel panel-default mb0">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            Create a new link
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <ng-form name="WebsitedocumentForm" novalidate role="form">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-4">
+                                                                    <label class="full_width"
+                                                                           ng-bind-html="GetColumnDetails('FileLeafRef') | trustedHTML">
+                                                                        <b class="span-error">*</b>
+                                                                    </label>
+                                                                    <input id="linktodocwebsiteTitleLite"
+                                                                           style="display:block;" ng-required="true"
+                                                                           class="form-control" type="text"
+                                                                           placeholder="Name"
+                                                                           ng-model="modelObject[modelValue.Title]">
+                                                                </div>
+                                                                <div class="col-sm-8">
+                                                                    <label class="full_width"
+                                                                           ng-bind-html="GetColumnDetails('LinkUrl') | trustedHTML">
+                                                                        <b class="span-error">*</b>
+                                                                    </label>
+                                                                    <input id="linktodocwebsiteUrl" ng-required="true"
+                                                                           style="display:block;" type="text"
+                                                                           class="form-control" name="linkwebsiteUrl"
+                                                                           ng-pattern="/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,10}(:[0-9]{1,5})?(\/.*)?$/"
+                                                                           ng-model="linkwebsiteUrl" />
+                                                                    <span class="required"
+                                                                          ng-show="WebsitedocumentForm.linkwebsiteUrl.$error.pattern">
+                                                                        Not
+                                                                        a valid url!
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="col-sm-12">
+
+
+                                                                <button style="float:right;margin-top:10px; margin-bottom: 10px;"
+                                                                        ng-disabled="!linkwebsiteUrl"
+                                                                        type="button" class="btn btn-primary"
+                                                                        ng-click="CreateProfileDocument('Website','WebsiteDocument')">
+                                                                    Create
+                                                                </button>
+
+                                                            </div>
+                                                        </ng-form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="Presentations" class="">
+                                        <div class="container">
+                                            <div class="col-sm-12">
+                                            <div class="col-sm-12 no-padding">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            Connect a New Presentation
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body  ">
+                                                        <div class="col-sm-12 mt-10">
+                                                            <div class="mt-10">                                                            
+                                                                <!-- <div class="col-sm-4">
+                                                                    <input name="radioPresentation" type="radio"
+                                                                        value="presentation"
+                                                                        ng-model="PresentationType">
+                                                                    <label
+                                                                        ng-bind-html="GetColumnDetails('Presentation') | trustedHTML"></label>
+                                                                </div> -->
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="fixed-scroll-ExistingConnectingItems">
+                                                                <div class="col-sm-12 noitems">
+                                                                    <label class="full_width"
+                                                                        ng-bind-html="GetColumnDetails('pptxFile') | trustedHTML"></label>
+                                                                    <input class="form-control" style="display:block;"
+                                                                        ng-model="uploadpptxFileLite" type="file"
+                                                                        id="uploadpptxFileLite" valid-file>
+                                                                </div>
+                                                                <div class="col-sm-12 noitems">
+                                                                    <label class="full_width"
+                                                                        ng-bind-html="GetColumnDetails('PrintVersion') | trustedHTML"></label>
+                                                                    <input class="form-control" style="display:block;"
+                                                                        ng-model="uploadpdfFileLite" type="file"
+                                                                        id="uploadpdfFileLite" valid-file>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="clearfix"></div>
+                                                                    <div class="col-sm-12">
+                                                                        <button style="float:right;" type="button"
+                                                                            class="btn btn-primary pull-right"
+                                                                            ng-click="UploadProfilePrsentation('Presentation Mode')">
+                                                                            Upload
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                ng-click="TagSelectedItems()">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--start of Showing Tagged Documents-->
+    <shareweb-progress-bar progressbarid="'addandConnectDocumentprogressbar'"></shareweb-progress-bar>
+    <shareweb-progress-bar progressbarid="'uploadDocumentprogressbar'"></shareweb-progress-bar>
+    <shareweb-progress-bar progressbarid="'dragDropDocumentprogressbar'"></shareweb-progress-bar>
+    <shareweb-progress-bar progressbarid="'createNewsprogressbar'"></shareweb-progress-bar>
+    <!--End of Showing Tagged Documents-->
+</div>

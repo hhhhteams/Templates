@@ -1,0 +1,38 @@
+﻿<style>
+	.bdrbox{
+		border: 1px solid #cccccc;
+	}
+</style>
+<div ng-cloak>
+	<div class="panel panel-default" ng-cloak>
+		<ng-form name="SharewebFeedback" novalidate role="form">
+			<div class="panel-title">
+				<h3 class="modal-title">Shareweb Help Detail -{{PageTitle}}
+					<a ng-if="isOwner" class="hreflink padding-left" ng-click="editHelpItem()"><img
+							ng-src="/_layouts/images/edititem.gif"></a>
+					<button type="button" class="close" ng-click="cancelHelp();"
+						style="min-width: 10px;">&times;</button>
+					​​​</h3>
+			</div>
+			<div class="modal-body  help">
+				<div class="inner-tabb bdrbox tab-content col-sm-12">
+					<div class="SharewebHelpImg" ng-show="IsshowReadOnly" class="form-group mt-10">
+						<div ng-bind-html="AllSharewebPagesHelp.Description"></div>
+						<div class="clearfix"></div>
+					</div>
+					<div ng-show="IsshowReadOnly == false" class="form-group mt-10">
+						<div class="forFullScreenButton" id="updateHelpItem"></div>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-show="Isshowsavehelp" class="btn btn-primary"
+					ng-click="AddHelpItem()">Save</button>
+				<button type="button" ng-show="Isshowsavehelp" class="btn btn-default"
+					ng-click="cancelEditor()">Cancel</button>
+			</div>
+		</ng-form>
+	</div>
+</div>

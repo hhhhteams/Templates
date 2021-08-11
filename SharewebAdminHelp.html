@@ -1,0 +1,476 @@
+﻿<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<style>
+    .fr-top {z-index: auto !important;}
+    </style>
+<div ng-cloak>
+    <div class="panel panel-default SharewebAdminHelpModal " ng-cloak>
+        <ng-form name="SharewebFeedback" novalidate role="form">
+            <div class="panel-title">
+                <button type="button" class="close" ng-click="CancelAdminHelp();"
+                            style="min-width: 10px;">
+                        &times;
+                    </button>
+                    <span class="pull-right">
+                        <page-settings-info webpartid="'adminhelp'"></page-settings-info>
+                    </span>
+                <h3>
+                    Shareweb Admin Help - {{AllSharewebPagesHelp.Title}}                  
+                    
+                </h3>
+            </div>
+            <div class="modal-body help " style="max-height: 400px;">
+
+                <div class="col-sm-12 tab-content phase bdrbox">
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <div class="form-group inner-tabb" ng-show="AllSharewebPagesHelp!=undefined">
+                                <div ng-if="AllSharewebPagesHelp.Help_x0020_Information!=undefined || AllSharewebPagesHelp.ShortDescription!=undefined"
+                                     class="col-sm-12 form-group">
+
+                                    <div ng-if="AllSharewebPagesHelp.ShortDescription!=undefined" class="col-sm-12">
+                                        <div class="col-sm-12 FAQsQuestion padL-0 PadR0">
+                                            <div ng-bind-html="AllSharewebPagesHelp.ShortDescription | trustedHTML">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div ng-if="AllSharewebPagesHelp.Help_x0020_Information!=undefined"
+                                         class="col-sm-12 form-group">
+                                        <div class="col-sm-12 FAQsQuestion padL-0 PadR0">
+                                            <input class="toggle-box-content icontype" id="identifier-1"
+                                                   type="checkbox">
+                                            <label for="identifier-1">
+                                                Help Information
+                                            </label>
+
+                                            <div class="accordin-content" id="identifier-1">
+                                                <div ng-bind-html="AllSharewebPagesHelp.Help_x0020_Information | trustedHTML">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </fieldset> -->
+                                </div>
+                                <div ng-show="isOwner && FeaturesItem.length>0" class="col-sm-12 form-group">
+                                    <fieldset class="fieldsett">
+                                        <legend>Features</legend>
+                                        <div class="col-sm-12  mb-10">
+                                            <div class="col-sm-12 FAQsQuestion padL-0 PadR0"
+                                                 ng-repeat="value in FeaturesItem">
+                                                <input class="toggle-box-content icontype"
+                                                       id="identifier-{{value.Title}}" type="checkbox">
+                                                <label for="identifier-{{value.Title}}">{{value.Title}}</label>
+                                                <div class="accordin-content" id="identifier-{{value.Title}}">
+                                                    <div ng-bind-html="value.Body | trustedHTML">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div ng-show="isOwner && PermissionInformation.length>0" class="col-sm-12 form-group">
+                                    <fieldset class="fieldsett">
+                                        <legend>Permission Information</legend>
+                                        <div class="col-sm-12  mb-10">
+                                            <div class="col-sm-12 FAQsQuestion padL-0 PadR0"
+                                                 ng-repeat="value in PermissionInformation">
+                                                <input class="toggle-box-content icontype"
+                                                       id="identifier-{{value.Title}}" type="checkbox">
+                                                <label for="identifier-{{value.Title}}">{{value.Title}}</label>
+                                                <div class="accordin-content" id="identifier-{{value.Title}}">
+                                                    <div ng-bind-html="value.Description | trustedHTML">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-12" style="margin-bottom: -10px;">
+                                    <a ng-show="isOwner" class="hreflink pull-right"
+                                       ng-href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/sp/SitePages/HHHHPortfolioDescriptionForm.aspx?taskId={{AllSharewebPagesHelp.Id}}" target="_blank">
+                                        Manage Content
+                                    </a>
+
+                                    <span style="margin-left:5px;margin-right:5px;" class="pull-right">
+                                        |
+                                    </span>
+                                    <a ng-show="isOwner" class="hreflink pull-right"
+                                       ng-href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/sp/SitePages/Question-Management.aspx?taskId={{AllSharewebPagesHelp.Id}}" target="_blank">
+                                        Manage Questions
+                                    </a>
+
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <fieldset class="fieldsett">
+                                        <legend>FAQs</legend>
+                                        <div class="col-sm-12  mb-10">
+                                            <div class="col-sm-12 padL-0 PadR0">
+                                                <span class="pull-right footerUsercolor hreflink" ng-click="AskQuestion('Question')">
+                                                    Ask
+                                                    Question
+                                                </span>
+                                            </div>
+                                            <div ng-if="FAQsItem.length>0" class="col-sm-12 FAQsQuestion padL-0 PadR0 accordin-header"
+                                                 ng-repeat="item in FAQsItem">
+                                                <input class="toggle-box-content icontype"
+                                                       id="identifier-{{item.Title}}" type="checkbox">
+                                                <label for="identifier-{{item.Title}}">
+                                                    {{item.Title}}
+                                                    <span class="pull-right"><a class="hreflink" ng-click="UpdateQuestion(item)"> <img ng-src="/_layouts/images/edititem.gif"></a> <a class="hreflink" ng-click="DeleteQuestion(item)"><img src="/_layouts/images/delete.gif" /></a></span>
+                                                </label>
+                                                <div class="accordin-content" id="identifier-{{item.Title}}">
+                                                    <div ng-bind-html="item.Body | trustedHTML">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="AskQuestionPopUP" class="modal fade in FeedBackIconSize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+                                                <div class="modal-dialog" style="width: 969px;">
+                                                    <div class="modal-content">
+                                                        <ng-form name="createContactConfirmationPopUPForm" novalidate role="form">
+                                                            <div class="panel-title">
+                                                                
+                                                                <button type="button" class="close" data-dismiss="modal" ng-click="cancelQuestionPopUP()" style="min-width: 10px;">&times;</button>
+                                                                <span class="pull-right mt--2">
+                                                                    <span ng-show="ComponentItemtype=='Help'">
+                                                                        <page-settings-info webpartid="'helpdescriptions'"></page-settings-info>
+                                                                    </span>
+                                                                    <span ng-show="ComponentItemtype=='Question'">
+                                                                        <page-settings-info webpartid="'Questiondescriptions'"></page-settings-info>
+                                                                    </span>
+                                                                </span>
+                                                                
+                                                                    <h3>
+                                                                        <span>Add {{ComponentItemtype}}</span>                                                                   
+                                                                    </h3>
+                                                                
+                                                            </div>
+                                                            <div class="panel-body ">
+                                                                <div class="col-sm-12 form-group tab-content bdrbox">
+
+
+                                                                    <div class="form-group">
+                                                                        <div class="contact">
+                                                                            <div class="col-sm-12 form-group">
+                                                                                <label>Title</label>
+                                                                                <div>
+                                                                                    <input type="text" id="txtFirstName" ng-model="ComponentName" class="form-control" ng-required="true" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--<div class="col-sm-12 form-group" ng-show="ComponentItemtype=='Question'">
+                                                                                <label>
+                                                                                    Permission
+                                                                                    <a ng-click="ClearSelectionPermission(Permission)" class=" hreflink"><img ng-src="/_layouts/images/delete.gif"></a>
+                                                                                </label>
+                                                                                <div>
+                                                                                    <span ng-repeat="item in PermissionChoiceData" style="margin-bottom:2px;margin-right:36px;">
+                                                                                        <input type="radio" name="Permission" id="{{item}}" value="{{item}}" class="form-check-input" ng-click="addPermission(item,'Permission')" ng-model="Permission" style="margin-right:5px" />{{item}}
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>-->
+                                                                            <div class="col-sm-12 form-group">
+                                                                                <label>Description</label>
+                                                                                <div>
+                                                                                    <div id="AskDescription"></div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer pr-10">
+                                                                <div class="col-sm-12 PadR0">
+                                                                    <button type="button" class="btn btn-primary" ng-click="AskAddQuestion()">Save</button>
+                                                                    <button type="button" class="btn btn-default" ng-click="cancelQuestionPopUP()">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </ng-form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="UpdateQuestionPopUP" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+                                                <div class="modal-dialog" style="width: 969px;">
+                                                    <div class="modal-content">
+                                                        <ng-form name="createContactConfirmationPopUPForm" novalidate role="form">
+                                                            <div class="panel-title">
+                                                                <h3>
+                                                                    <span>Update {{updateItem.ItemType}}</span>
+                                                                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelUpdateQuestionPopUP()" style="min-width: 10px;">&times;</button>
+                                                                    <span class="pull-right">
+                                                                        <page-settings-info webpartid="'helpdescriptions'"></page-settings-info>
+                                                                    </span>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="panel-body tab-content">
+                                                                <div class="col-sm-12 form-group">
+                                                                    <div id="">
+                                                                        <div id="">
+                                                                            <div class="form-group">
+                                                                                <div class="contact">
+                                                                                    <div class="col-sm-12 form-group">
+                                                                                        <label>Title</label>
+                                                                                        <div>
+                                                                                            <input type="text" id="txtFirstName" ng-model="updateItem.Title" class="form-control" ng-required="true" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!--<div class="col-sm-12 form-group">
+                                                                                        <label>
+                                                                                            Permission
+                                                                                            <a ng-click="ClearSelectionPermission(updateItem.Permission)" class=" hreflink"><img ng-src="/_layouts/images/delete.gif"></a>
+                                                                                        </label>
+                                                                                        <div>
+                                                                                            <span ng-repeat="item in PermissionChoiceData" style="margin-bottom:2px;margin-right:36px;">
+                                                                                                <input type="radio" name="Permission1" id="{{item}}" value="{{item}}" class="form-check-input" ng-click="addPermission(item,updateItem.Permission)" ng-model="updateItem.Permission" style="margin-right:5px" disabled />{{item}}
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>-->
+                                                                                    <div class="col-sm-12 form-group">
+                                                                                        <label>Description</label>
+                                                                                        <div>
+                                                                                            <div id="UpdateDescription"></div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="col-sm-12 padL-0 PadR0">
+                                                                <div class="col-sm-6">
+                                                                    <div class="pull-left">Created <span>{{updateItem.Created}}</span> by <span class="footerUsercolor">{{updateItem.Author.Title}}</span></div>
+                                                                    <div class="pull-left">Last modified <span>{{updateItem.Modified}} </span> by <span class="footerUsercolor">{{updateItem.Editor.Title}}</span></div>
+                                                                 </div>
+                                                                 <div class="col-sm-6 text-right px-0">
+                                                                    <a target="_blank" ng-href="{{SpSiteUrl}}/Lists/SmartHelp/EditForm.aspx?ID={{updateItem.Id}}">Open out-of-the-box form </a>
+                                                                     <button type="button" class="btn btn-primary" ng-click="updateItemQuestion()">Save</button>
+                                                                     <button type="button" class="btn btn-default" ng-click="cancelUpdateQuestionPopUP()">Cancel</button>
+                                                                 </div>
+                                                         </div>
+                                                            </div>
+                                                        </ng-form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="form-group inner-tabb" ng-show="AllSharewebPagesHelp==undefined">
+                                <span>
+                                    It is not Tagged with any Component. Do you want to tag with
+                                    <a class="hreflink" ng-click="openNewComponentPopup()"> <b>New Component </b></a> or <a class="hreflink" ng-click="openExistingComponentPopup()"> <b>Existing Component</b> </a>?
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <shareweb-progress-bar progressBarId="AdminHelp"></shareweb-progress-bar>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary mt-10" ng-click="CancelAdminHelp()">OK</button>
+                <!--<div class="pull-left mt-10" style="margin-left: 10px;">
+                    <a ng-click="printResults()">
+                        <img ng-src="https://www.shareweb.ch/site/Joint/SiteCollectionImages/ICONS/24/icon_pdf_16.jpg"
+                             class="ng-scope">
+                    </a>
+                </div>-->
+            </div>
+        </ng-form>
+    </div>
+</div>
+<div id="AddNewWebpart" class="modal">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="panel-title">
+                <h3 class="ng-binding">
+                    Create {{PortfolioItemTypes}}
+                    <button type="button" class="close" ng-click="CancelAddNewWebpart()" style="min-width: 10px;">×</button>
+                    <span class="col-sm-1 pull-right">
+                        <page-settings-info webpartid="'SharewebcreateComponent'"></page-settings-info>
+                    </span>
+                </h3>
+            </div>
+            <ng-form name="siteOwnerForm" novalidate="" role="form" class="ng-pristine ng-valid">
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="mt-10 panel-padding">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>Title</label><span class="required">*</span>
+                            </div>
+                            <div class="col-sm-10 padL-0" ng-form="validation">
+                                <input ng-required="true" type="text" class="form-control" ng-model="WebpartTitle"
+                                       placeholder="Type your Title" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt-10 panel-padding" ng-show="MainWebpartType=='Webpart'">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>WebpartId</label><span class="required">*</span>
+                            </div>
+                            <div class="col-sm-10 padL-0" ng-form="{{MainWebpartType=='Webpart'?'validation':''}}">
+                                <input ng-required="true" type="text" class="form-control" ng-model="WebpartNewId"
+                                       placeholder="Enter Webpart Id" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt-10 panel-padding">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>Select</label>
+                            </div>
+                            <div class="col-sm-10 padL-0">
+                                <span>
+                                    <input type="radio" name="Portfolios" value="Component" ng-model="PortfolioItemTypes" class="ng-pristine ng-untouched ng-valid ng-empty" style="margin-top: 1px;">
+                                    <label>Component</label>
+                                </span>
+                                <span>
+                                    <input type="radio" name="Portfolios" value="SubComponent" ng-model="PortfolioItemTypes" class="ng-pristine ng-untouched ng-valid ng-empty" style="margin-top: 1px;margin-left:5px;">
+                                    <label>SubComponent</label>
+                                </span>
+                                <span>
+                                    <input type="radio" name="Portfolios" value="Feature" ng-model="PortfolioItemTypes" class="ng-pristine ng-untouched ng-valid ng-empty" style="margin-top: 1px;margin-left:5px;">
+                                    <label>Feature</label>
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt-10 panel-padding" ng-show="PortfolioItemTypes!='Component'">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>Parent</label><span class="required">*</span>
+                            </div>
+                            <div class="col-sm-10 padL-0" ng-hide="WebpartParentPortfolioItems.length>0">
+                                <span>
+                                    Select Parent
+                                </span>
+                                <span>
+                                    <img class=""
+                                         ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png"
+                                         ng-click="openPopupSharewebPortfolio()">
+                                </span>
+                            </div>
+
+                            <div class="col-sm-9 padL-0" ng-show="WebpartParentPortfolioItems.length>0">
+                                <div class="block"
+                                     ng-repeat="item in WebpartParentPortfolioItems">
+                                    <a style="color:#fff !important;">
+                                        {{item.Title}}
+                                    </a>
+                                    <a class="hreflink"
+                                       ng-click="WebpartParentPortfolioItems.splice($index,1);">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-1 no-padding" ng-show="WebpartParentPortfolioItems.length>0">
+                                <img class="mt-10"
+                                     ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png"
+                                     ng-click="openPopupSharewebPortfolio()">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <shareweb-progress-bar progressBarId="AdminHelp"></shareweb-progress-bar>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-disabled="validation.$error.required"
+                            ng-click="SaveNewWebpartItem()">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="CancelAddNewWebpart()"
+                            title="Discard unsaved changes &amp; exit">
+                        Cancel
+                    </button>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>
+<div id="AddFromExistingComponent" class="modal">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="panel-title">
+                <h3 class="ng-binding">
+                    Add From Existing Component
+                    <button type="button" class="close" ng-click="CancelAddFromExistingComponent()" style="min-width: 10px;">×</button>
+                    <span class="col-sm-1 pull-right">
+                        <page-settings-info webpartid="'SharewebAddNewExistingComponent'"></page-settings-info>
+                    </span>
+                </h3>
+            </div>
+            <ng-form name="siteOwnerForm" novalidate="" role="form" class="ng-pristine ng-valid">
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="mt-10 panel-padding" ng-show="WebpartNewTitle!=undefined">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>Title</label>
+                            </div>
+                            <div class="col-sm-10 padL-0">
+                                <input type="text" class="form-control" ng-model="WebpartNewTitle"
+                                       placeholder="Type your Title" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt-10 panel-padding" ng-show="MainWebpartType=='Webpart'">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>WebpartId</label><span class="required">*</span>
+                            </div>
+                            <div class="col-sm-10 padL-0" ng-form="{{MainWebpartType=='Webpart'?'validation':''}}">
+                                <input ng-required="true" type="text" class="form-control" ng-model="WebpartNewId"
+                                       placeholder="Enter Webpart Id" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mt-10 panel-padding">
+                            <div class="col-sm-2 padL-0 PadR0">
+                                <label>Portfolio</label><span class="required">*</span>
+                            </div>
+                            <div class="col-sm-9 padL-0" ng-hide="WebpartPortfolioItems.length>0">
+                                <input type="text" class="form-control"
+                                       placeholder="Select Portfolio" readonly />
+                            </div>
+                            <div class="col-sm-1 no-padding" ng-hide="WebpartPortfolioItems.length>0">
+                                <img class="mt-10"
+                                     ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png"
+                                     ng-click="openPopupSharewebPortfolio()">
+                            </div>
+                            <div class="col-sm-9 padL-0" ng-show="WebpartPortfolioItems.length>0">
+                                <div class="block"
+                                     ng-repeat="item in WebpartPortfolioItems">
+                                    <a style="color:#fff !important;">
+                                        {{item.Title}}
+                                    </a>
+                                    <a class="hreflink"
+                                       ng-click="WebpartPortfolioItems.splice($index,1);">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-1 no-padding" ng-show="WebpartPortfolioItems.length>0">
+                                <img class="mt-10"
+                                     ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png"
+                                     ng-click="openPopupSharewebPortfolio()">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <shareweb-progress-bar progressBarId="AdminHelp"></shareweb-progress-bar>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            ng-click="SaveExistingWebpartItem()">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="CancelAddFromExistingComponent()"
+                            title="Discard unsaved changes &amp; exit">
+                        Cancel
+                    </button>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>

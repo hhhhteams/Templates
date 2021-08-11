@@ -1,0 +1,168 @@
+<div class="MY-----CODE col-sm-12 padL-0 PadR0 mb-15">
+    <div class="col-sm-12 pull-left HedaBackclr">
+        <div ng-if="!teamUserExpanded" class="col-sm-11 padL-0 hreflink" ng-click="forExpand()">
+            <img style="width:10px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/right-list-iconwhite.png">
+            <span class="txtSizeClr">Select Team Members</span>
+        </div>
+        <div ng-if="teamUserExpanded" class="col-sm-11 padL-0 hreflink" ng-click="forCollapse()">
+            <img style="width:10px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/list-iconwhite.png">
+            <span class="txtSizeClr">Select Team Members</span>
+        </div>
+
+        <span class="pull-right txtSizeClr mt--5">
+            <page-settings-info webpartid="'AvailableTaskUser'"></page-settings-info>
+        </span>
+    </div>
+
+    <div class="col-sm-12 mb-10 padL-0 BdrBoxBlue" ng-show="teamUserExpanded">
+        <div class="taskTeamBox pl-10" ui-on-drop="onDropRemoveTeam($event,$data,taskUsers)">
+            <div class="top-assign" ng-repeat="user in taskUsers">
+                <fieldset ng-if="user.childs.length >0" class="team">
+                    <legend class="ng-binding BdrBtm">
+                        {{user.Title}}
+                    </legend>
+                    <div class="marginR41" ng-repeat="item in user.childs">
+                        <span ng-if="item.Item_x0020_Cover!=undefined">
+                            <img class="AssignUserPhoto" ui-draggable="true"
+                                 drag="item"
+                                 on-drop-success="dropSuccessHandler($event, $index, user.childs)"
+                                 title="{{item.Title}}"
+                                 ng-src="{{item.Item_x0020_Cover.Url}}"
+                                 ng-click="openTeamPage(item)" />
+                        </span>
+                        <span ng-if="item.Item_x0020_Cover==undefined || item.Item_x0020_Cover== null">
+                            <div title="{{item.Title}}"
+                                 class="text-center create title2  ng-binding"
+                                 ng-click="openTeamPage(item)"
+                                 ng-if="item.Item_x0020_Cover==undefined"
+                                 ui-draggable="true" drag="item"
+                                 on-drop-success="dropSuccessHandler($event, $index,  user.childs)">
+                                {{item.Suffix}}
+                            </div>
+                        </span>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-sm-12 padL-0 PadR0" style="margin-left: 9px!important;">
+            <div class="col-sm-7 padL-0 PadR0">
+                <h3 class="md2 mb2 fontSize15 bold">Team Members</h3>
+                <div class="col-sm-12 padL-0 PadR0 UserTimeTabGray">
+
+                    <div class="col-sm-5 padL-0 PadR0" style="border-right: 1px solid #666363;padding-bottom: 10px;">
+
+                        <div ng-show="Item_x0020_Type == undefined" class="col-sm-12 PadR0 padL-0" ui-on-drop="onDropTeam($event,$data,ResponsibleTeam,'Team Leaders')">
+                            <div class=" PtL-5">
+                                <div style="width: 100%;display: inline-flex;">
+                                    <div>
+                                        <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, ResponsibleTeam,'Team Leaders')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in ResponsibleTeam"
+                                             title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                    <div>
+                                        <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, ResponsibleTeam,'Team Leaders')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}"
+                                             ng-repeat="image in ResponsibleTeam" ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                                    </div>
+
+                                </div>
+                                <span ng-show="ResponsibleTeam.length==0" style="color: #b1b0b0;padding-left:8px">
+                                    Task
+                                    Leaders
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div ng-show="Item_x0020_Type != undefined" class="col-sm-12 PadR0 padL-0" ui-on-drop="onDropTeam($event,$data,AssignedToUsers,'Assigned User')">
+                            <div class=" PtL-5">
+                                <div style="width: 100%;display: inline-flex;">
+                                    <div>
+                                        <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers,'Assigned User')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in AssignedToUsers"
+                                             title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                    <div>
+                                        <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers,'Assigned User')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}"
+                                             ng-repeat="image in AssignedToUsers" ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                </div>
+                                <span ng-show="AssignedToUsers.length==0" style="color: #b1b0b0;padding-left:8px">
+                                    Task
+                                    Leaders
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 padL-0 PadR0">
+                        <!-- <h3 class="md2 mb2 Ml-13 fontSize15">Team Members</h3> -->
+                        <div ng-show="Item_x0020_Type == undefined" class="col-sm-12 padL-0 PadR0" ui-on-drop="onDropTeam($event,$data,TeamMemberUsers,'Team Members')">
+                            <div class="PtL-5">
+                                <div style="width: 100%;display: inline-flex;">
+                                    <div>
+                                        <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers,'Team Members')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in TeamMemberUsers"
+                                             title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                    <div>
+                                        <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers,'Team Members')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}"
+                                             ng-repeat="image in TeamMemberUsers" ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                </div>
+                                <span ng-show="TeamMemberUsers.length==0" style="color: #b1b0b0;padding-left:8px">
+                                    Responsible Team
+                                </span>
+                            </div>
+                        </div>
+
+                        <div ng-show="Item_x0020_Type != undefined" class="col-sm-12 padL-0 PadR0" ui-on-drop="onDropTeam($event,$data,TeamMemberUsers,'Team Members')">
+                            <div class="PtL-5">
+                                <div style="width: 100%;display: inline-flex;">
+                                    <div>
+                                        <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers,'Team Members')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in TeamMemberUsers"
+                                             title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                    <div>
+                                        <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers,'Team Members')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}"
+                                             ng-repeat="image in TeamMemberUsers" ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                                    </div>
+                                </div>
+                                <span ng-show="TeamMemberUsers.length==0" style="color: #b1b0b0;padding-left:8px">
+                                    Responsible Team
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 padL-0 PadR0" ng-show="Item_x0020_Type == undefined">
+                <h3 class="md2 mb2 Ml-13 fontSize15 bold">Working Members</h3>
+                <div class="col-sm-12 PadR0" ui-on-drop="onDropTeam1($event,$data,AssignedToUsers,'Assigned User')">
+                    <div class="TimeTabBox PtL-5" style="height: 61px;">
+                        <div style="width: 100%;display: inline-flex;">
+                            <div>
+                                <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers,'Assigned User')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in AssignedToUsers"
+                                     title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                            </div>
+                            <div>
+                                <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers,'Assigned User')" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}"
+                                     ng-repeat="image in AssignedToUsers" ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                            </div>
+                        </div>
+                        <span ng-show="AssignedToUsers.length==0" style="color: #b1b0b0;padding-left:8px">
+                            Working
+                            Members
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 padL-0">
+                <div class="mt-10" style="float: right;">
+                    <div ui-on-drop="onDropRemoveTeam($event,$data, taskUsers)">
+                        <img ng-show="Item.Portfolio_x0020_Type=='Component'" title="Drag user here to  remove user from team for this Network Activity." class="height80" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/icon_Dustbin.png" />
+                        <img ng-show="Item.Portfolio_x0020_Type=='Service'" title="Drag user here to  remove user from team for this Network Activity." class="height80" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Service_Icons/icon_Dustbin-green.png" />
+                        <img ng-show="Item.Portfolio_x0020_Type=='Events'" title="Drag user here to  remove user from team for this Network Activity." class="height80" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Event_Icons/icon_Dustbin-orange.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

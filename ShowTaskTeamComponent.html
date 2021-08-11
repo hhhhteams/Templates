@@ -1,0 +1,107 @@
+﻿<style>
+    .suffixaddimg1 {
+        width: 26px !important;
+        height: 26px;
+        padding: 4px 4px;
+        top: 5px;
+        left: -5px;
+        font-size: 14px !important;
+    }
+    .userimgsize1 {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .tooltipte .tooltiptext {
+        left: -117px !important;
+        top: 27px !important;
+    }
+    .marginR41 {
+    display: table-cell !important;}
+    .mr2{margin-right: 2px !important;}
+</style>
+
+
+<div>
+    <div class="marginR41" ng-repeat="TaskLeaderValue in Item.TeamLeaderUser track by $index">
+        <a target="_blank" class="mr2" ng-href="{{CurrentSiteUrl}}/SitePages/TeamLeader-Dashboard.aspx?UserId={{TaskLeaderValue.Id}}&Name={{TaskLeaderValue.Title}}">
+            <img ng-if="TaskLeaderValue.userImage !=undefined"
+                 class="AssignUserPhoto mt--2 {{(TaskLeaderValue.isWorking && (TaskLeaderValue.Portfolio_x0020_Type=='Service'))?'WorkingMember':''}} {{(TaskLeaderValue.isWorking && (TaskLeaderValue.Portfolio_x0020_Type=='Component'))?'WorkingComponent':''}} {{(TaskLeaderValue.isWorking && (TaskLeaderValue.Portfolio_x0020_Type=='Event'))?'WorkingEvent':''}} userimgsize1 shadow UserTableTeam"
+                 title="{{TaskLeaderValue.Title}}" ng-src="{{TaskLeaderValue.userImage}}" />
+            <div class="content_drop text-center AssignUserPhoto suffixaddimg1  UserTableTeam shadow"
+                 ng-if="TaskLeaderValue.userImage==undefined && TaskLeaderValue.Suffix !=undefined"
+                 title="{{TaskLeaderValue.Title}}">
+                <div class="text-center title2 fontSize14 TeamPad">
+                    {{TaskLeaderValue.Suffix}}
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="marginR41" ng-show="Item.TeamLeaderUser.length>0 && Item.TeamMemberUser.length>0">
+        |
+    </div>
+    <div class="marginR41" ng-repeat="TaskTeamMemberValue in Item.TeamMemberUser track by $index">
+        <a target="_blank" class="mr2" ng-href="{{CurrentSiteUrl}}/SitePages/TeamLeader-Dashboard.aspx?UserId={{TaskTeamMemberValue.Id}}&Name={{TaskTeamMemberValue.Title}}">
+            <img ng-if="TaskTeamMemberValue.userImage !=undefined"
+                 class="AssignUserPhoto mt--2 {{(TaskTeamMemberValue.isWorking && (TaskTeamMemberValue.Portfolio_x0020_Type=='Service'))?'WorkingMember':''}} {{(TaskTeamMemberValue.isWorking && (TaskTeamMemberValue.Portfolio_x0020_Type=='Component'))?'WorkingComponent':''}} {{(TaskTeamMemberValue.isWorking && (TaskTeamMemberValue.Portfolio_x0020_Type=='Event'))?'WorkingEvent':''}} userimgsize1 UserTableTeam shadow"
+                 title="{{TaskTeamMemberValue.Title}}" ng-src="{{TaskTeamMemberValue.userImage}}" />
+            <div class="content_drop text-center AssignUserPhoto suffixaddimg1  UserTableTeam shadow"
+                 ng-if="TaskTeamMemberValue.userImage==undefined && TaskTeamMemberValue.Suffix !=undefined"
+                 title="{{TaskTeamMemberValue.Title}}">
+                <div class="text-center title2 fontSize14 mt--2 TeamPad">
+                    {{TaskTeamMemberValue.Suffix}}
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="marginR41" ng-show="Item.AdditionalTeam.length==1">
+        <div class="marginR41" ng-repeat="Additional in Item.AdditionalTeam track by $index">
+            <a target="_blank" class="mr2" ng-href="{{CurrentSiteUrl}}/SitePages/TeamLeader-Dashboard.aspx?UserId={{Additional.Id}}&Name={{Additional.Title}}">
+                <img ng-if="Additional.userImage !=undefined"
+                     class="AssignUserPhoto mt--2 {{(Additional.isWorking && (Additional.Portfolio_x0020_Type=='Service'))?'WorkingMember':''}} {{(Additional.isWorking && (Additional.Portfolio_x0020_Type=='Component'))?'WorkingComponent':''}} {{(Additional.isWorking && (Additional.Portfolio_x0020_Type=='Event'))?'WorkingEvent':''}} userimgsize1 UserTableTeam shadow"
+                     title="{{Additional.Title}}" ng-src="{{Additional.userImage}}" />
+                <div class="content_drop text-center AssignUserPhoto suffixaddimg1  UserTableTeam shadow"
+                     ng-if="Additional.userImage==undefined && Additional.Suffix !=undefined"
+                     title="{{Additional.Title}}">
+                    <div class="text-center title2 mt--2 fontSize14 TeamPad">
+                        {{Additional.Suffix}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="marginR41" ng-show="Item.AdditionalTeam.length>1">
+        <span class="localtooltip mr2 icontype display_hide">
+            <span class="content_drop text-center">
+                <span class="text-center title2 userimgsize1 mt-2 hreflink project-tool" style="padding: 4px;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;">
+                    +{{Item.AdditionalTeam.length}}
+                    <span class="tooltipte">
+                        <span class="tooltiptext" style="min-width:200px;">
+                            <div class="tooltip_Desc">
+                                <div class="full_width mb-4 for-lis" ng-repeat="items in Item.AdditionalTeam track by $index">
+                                    <div style="width:15%">
+                                        <a target="_blank" ng-href="{{CurrentSiteUrl}}/SitePages/TeamLeader-Dashboard.aspx?UserId={{items.Id}}&Name={{items.Title}}">
+                                            <img ng-if="items.userImage !=undefined"
+                                                 class="AssignUserPhoto {{(items.isWorking && (items.Portfolio_x0020_Type=='Service'))?'WorkingMember':''}} {{(items.isWorking && (items.Portfolio_x0020_Type=='Component'))?'WorkingComponent':''}} {{(items.isWorking && (items.Portfolio_x0020_Type=='Event'))?'WorkingEvent':''}} userimgsize1 UserTableTeam shadow"
+                                                 title="{{items.Title}}" ng-src="{{items.userImage}}" />
+                                            <div class="content_drop text-center suffixaddimg1 AssignUserPhoto"
+                                                 ng-if="items.userImage==undefined && items.Suffix !=undefined"
+                                                 title="{{items.Title}}">
+                                                <div class="text-center title2">
+                                                    {{items.Suffix}}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="mt-2" style="width:85%">
+                                        {{ items.Title}}
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/CreatedandModifiedBy.js"></script>
+<script type="text/javascript"
+    src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<div ng-controller="createdandmodifiedController" ng-cloak>
+    <div id="EditTask">
+        <div class="ItemInfo">
+            <div>
+                Created <span>{{Item.Created}}</span> by <span class="footerUsercolor">{{Item.Author.Title}}</span>
+            </div>
+            <div>
+                Last modified <span>{{Item.Modified}}</span> by <span class="footerUsercolor">{{Item.Editor.Title}}</span>
+            </div>
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/TemplatePopup.js"></script>
+<script type="text/javascript"
+    src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<div ng-controller="Templatepopupcontroller" ng-cloak>
+    <div id="EditTask">
+        <div class="panel panel-default" ng-cloak>
+            <div class="panel-title">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelEditItem()"
+                    style="min-width: 10px;">&times;</button>
+                <h3>
+                    <img ng-if="ItemDetails.Item_x0020_Type =='Component'" class="icon-sites-img"
+                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                    <img ng-if="ItemDetails.Item_x0020_Type =='SubComponent'" class="icon-sites-img"
+                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                    <img ng-if="ItemDetails.Item_x0020_Type =='Template'">
+
+                    <img ng-if="ItemDetails.Item_x0020_Type =='Feature'" class="icon-sites-img"
+                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">Update-{{ItemDetails.Title}}
+                </h3>
+            </div>
+            <ng-form name="UpdateTaskForm" novalidate role="form">
+                <div class="modal-body pad10">
+                    <div id="tabs" class="exTab3 Dashboard_Tab_Content mb-10">
+                        <ul class="nav nav-pills">
+                            <li class="active">
+                                <a href="#basicInfo" data-toggle="tab" ng-bind-html="GetColumnDetails('basicInfo')"></a>
+                            </li>
+                            <li class="">
+                                <a href="#componentInfo" data-toggle="tab"
+                                    ng-bind-html="GetColumnDetails('componentInfo')"></a>
+                            </li>
+                        </ul>
+                        <shareweb-progress-bar progressBarId="localtask"></shareweb-progress-bar>
+                        <div class="tab-content container BTop md2">
+                            <div class="tab-pane fade in active" id="basicInfo">
+
+                                <div class="col-sm-12  PadR0">
+                                    <div class="col-sm-5 mb-10 padL-0 PadR0">
+                                        <label>Title</label>
+                                        <input type="text" class="form-control" placeholder="Title" ng-required="true"
+                                            ng-model="Itemdata[0].Title" />
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="col-sm-8 mt1 Doc-align padL-0">
+                                        <div class="forFullScreenButton" id="Short_x0020_Description_x0020_On" ng-model="Itemdata[0].Short_x0020_Description_x0020_On"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="componentInfo">
+                                <div class="section-event pad0 col-sm-8">
+                                <table class="SAP-Project table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat-start="item in TaggedItem">
+                                            <td style="width:3% ">
+                                                <span ng-show="item.ItemType =='Component'"><img style="width:18px;"
+                                                        class="icon-sites-img"
+                                                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png"></span>
+                                                <span ng-show="item.ItemType =='SubComponent'"><img style="width:18px;"
+                                                        class="icon-sites-img"
+                                                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png"></span>
+                                                <span ng-show="item.ItemType =='Feature'"><img style="width:18px;"
+                                                        class="icon-sites-img"
+                                                        ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png"></span>
+                                            </td>
+                                            <td style="width: 3% ;">
+
+                                                <span ng-if="item.childs.length>0">
+                                                    <span ng-show="item.childs.length>0">
+                                                        <a class="flag_icon" ng-if="item.expanded"
+                                                            ng-click="item.expanded = false">
+                                                            <img
+                                                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/24/list-icon.png">
+                                                        </a>
+                                                        <a class="flag_icon" ng-if="!item.expanded"
+                                                            ng-click="item.expanded = true">
+                                                            <img
+                                                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                                        </a>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                                
+                                            <td><a target="_blank" ng-href="{{siteurl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}&Site={{item.sitetype}}"> {{item.Title}}</a></td>
+
+                                        </tr>
+                                        <tr ng-if="item.expanded" ng-repeat-end class=" active tdrow">
+                                            <td colspan="10" class="sub-phase-td">
+                                                <table class="subphase table table-hover" style="width:100%;">
+                                                    <tr ng-repeat-start="child in item.childs" class="tdrow">
+                                                        <td style="width: 3%;">
+                                                            <img style="width:18px;"
+                                                                ng-if="child.ItemType =='Component'"
+                                                                class="icon-sites-img"
+                                                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                                                            <img style="width:18px;"
+                                                                ng-if="child.ItemType =='SubComponent'"
+                                                                class="icon-sites-img"
+                                                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                                                            <img style="width:18px;" ng-if="child.ItemType =='Feature'"
+                                                                class="icon-sites-img"
+                                                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+                                                        </td>
+                                                        <td style="width:2%;">
+                                                            <a class="hreflink"
+                                                                ng-show="child.childs.length>0&&!child.expanded"
+                                                                ng-click="child.expanded=true"
+                                                                title="Tap to expand the {{child.Title}} childs">
+                                                                <img
+                                                                    src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/right-list-icon.png">
+                                                            </a>
+                                                            <a class="hreflink"
+                                                                ng-show="child.childs.length>0&&child.expanded"
+                                                                ng-click="child.expanded=false"
+                                                                title="Tap to Shrink the {{child.Title}} childs">
+                                                                <img
+                                                                    src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/list-icon.png">
+                                                            </a>
+                                                        </td>
+                                                        <td style="width:47%;">
+                                                            <a ng-show="child.ItemType =='Component'|| child.ItemType =='SubComponent'||child.ItemType =='Feature'"
+                                                                target="_blank" ng-href="{{siteurl}}/SitePages/Portfolio-Profile.aspx?taskId={{child.Id}}={{child.sitetype}}">{{child.Title}}</a>
+                                                            <a ng-show="child.ItemType !='Component'&& child.ItemType !='SubComponent'&& child.ItemType !='Feature'"
+                                                                target="_blank" ng-href="{{siteurl}}/SitePages/Portfolio-Profile.aspx?taskId={{child.Id}}={{child.sitetype}}">{{child.Title}}</a>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr ng-if="child.expanded" ng-repeat-end class=" active tdrow">
+                                                        <td colspan="8" class="sub-phase-td">
+                                                            <table class="subphase table table-hover"
+                                                                style="width:100%;">
+                                                                <tr ng-repeat="subchild in child.childs" class="tdrow">
+                                                                    <td>
+                                                                        <img style="width:18px;"
+                                                                            ng-if="subchild.ItemType =='Component'"
+                                                                            class="icon-sites-img"
+                                                                            ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/component_icon.png">
+                                                                        <img style="width:18px;"
+                                                                            ng-if="subchild.ItemType =='SubComponent'"
+                                                                            class="icon-sites-img"
+                                                                            ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/SubComponent_icon.png">
+                                                                        <img style="width:18px;"
+                                                                            ng-if="subchild.ItemType =='Feature'"
+                                                                            class="icon-sites-img"
+                                                                            ng-src="{{siteurl}}/SiteCollectionImages/ICONS/Shareweb/feature_icon.png">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ItemInfo" style="padding-top:15px;">
+                    <div>Created <span>{{Itemdata[0].created}}</span> by <span
+                            class="footerUsercolor">{{Itemdata[0].Author.Title}}</span></div>
+                    <div>Last modified <span>{{Itemdata[0].modified}}</span> by <span
+                            class="footerUsercolor">{{Itemdata[0].Editor.Title}}</span></div>
+                    <div>
+                        <a class="hreflink" ng-click="deleteTaskFromPopUp();"><img ng-src="/_layouts/images/delete.gif">
+                            Delete this item</a> | <a class="hreflink" ng-click="OpenCopyItem();"> Copy Item</a>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:1px solid transparent;">
+                    <span class="pull-right">
+                        <a target="_blank"
+                            ng-href="{{siteurl}}/SitePages/Template-Profile.aspx?taskId={{ItemDetails.Id}}&Site={{ItemDetails.siteType}}"><img
+                                ng-src="/_layouts/15/images/ichtm.gif?rev=23" /> Go to profile page</a>
+                        ||<a target="_blank"><img
+                                ng-src="{{siteurl}}/SiteCollectionImages/ICONS/32/icon_maill.png" />Share this
+                            task</a>||
+                        <a target="_blank"
+                            ng-href="{{CurrentSiteUrl}}/Lists/Master Tasks/EditForm.aspx?ID={{Itemdata[0].Id}}">Open
+                            out-of-the-box form</a>
+                        <button type="button" class="btn btn-primary" ng-click="updateTaskRecords()">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                            ng-click="cancelEditItem()">Cancel</button>
+                    </span>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>

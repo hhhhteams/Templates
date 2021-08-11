@@ -1,0 +1,164 @@
+﻿<div ng-cloak>
+	<div class="panel panel-default" ng-cloak>
+		<div class="modal-header">
+			<div class="panel-title">
+				<h3>
+					Settings - {{webhelpTitle}}
+					<button type="button" class="close" data-dismiss="modal" ng-click="cancelItem()" style="min-width: 10px;">&times;</button>
+				</h3>
+				
+			</div>
+		</div>
+
+
+		<div class="panel-body tab-content">
+			<div id="table-wrapper">
+				<div id="table-scroll">
+					<ng-form name="ItemForm" novalidate role="form">
+						<div class="form-group inner-tabb col-sm-12">
+													
+								<label class="full_width">Page Url</label>
+							<div>
+								<span style="font-size:17px"> {{currenturl}}</span>
+								<span><input class="pull-right" name="IsChecked" ng-model="IsChecked" type="checkbox"></span>
+							</div>
+						
+							<div class="clearfix"></div>
+						</div>
+
+						<div class="form-group col-sm-12">
+							<div class="col-sm-7 no-padding">
+								<label class="full_width">Component Title<span class="no-padding" data-toggle="popover" data-placement="Right" data-trigger="hover" data-content="Sorting Description" data-original-title="" title=""><img style="max-width:15px;" src="/site/EI/SiteCollectionImages/ICONS/24/infoIcon.png"></span></label>
+								<input type="text" class="form-control" ng-model="webhelpTitle" />
+							</div>
+							<div class="col-sm-3" style="margin-top:19px;">
+								<select class="form-control searchbox_height" id="SelectItemView" ng-model="value" ng-change="selectView(value)">
+									<option value="">Select View</option>
+									<option value="List">List</option>
+									<option value="Boxed">Boxed</option>
+									<option value="Document Type">Video</option>
+									<option value="Document Type">Presentation</option>
+								</select>
+							</div>
+							<div class="col-sm-2">
+								<label class="full_width">Item Limit<span class="no-padding" data-toggle="popover" data-placement="Right" data-trigger="hover" data-content="Item Limit Description" data-original-title="" title=""><img style="max-width:15px;" src="/site/EI/SiteCollectionImages/ICONS/24/infoIcon.png"></span></label>
+								<input type="text" class="form-control" name="ItemLimit" ng-pattern="/^[0-9]+([,.][0-9]+)?$/" ng-model="ItemLimit" />
+								<span class="required" ng-show="ItemForm.ItemLimit.$error.pattern">Not a valid number!</span>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="col-sm-12 form-group">
+							<label class="full_width no-padding">
+								Sorting<span class="no-padding" data-toggle="popover" data-placement="Right" data-trigger="hover" data-content="Sorting Description" data-original-title="" title=""><img style="max-width:15px;" src="/site/EI/SiteCollectionImages/ICONS/24/infoIcon.png"></span>
+							</label>
+							<div class="col-sm-12 panel panel-default">
+								<div class="row" style="padding:15px;" ng-repeat="item in $root.webpartinfo.SortingInfo">
+									<div class="col-md-7 no-padding">
+										<select class="form-control" ng-model="item.Column">
+											<option value="">Select Column</option>
+											<option value="Created">Created</option>
+											<option value="Item_x002d_Rank">Item Rank</option>
+											<option value="Modified">Modified</option>
+											<option value="SortOrder">Sort Order</option>
+											<option value="Title">Title</option>
+											<option value="Year">Year</option>
+										</select>
+									</div>
+									<div class="col-md-3">
+										<select class="form-control" ng-model="item.Order">
+											<option value="">Select Order</option>
+											<option value="Ascending">Ascending</option>
+											<option value="Descending">Descending</option>
+										</select>
+									</div>
+									<!--<div class="col-md-1">
+										<span ng-if="$index==$root.webpartinfo.SortingInfo.length-1" class="glyphicon glyphicon-plus" ng-click="addColumnSortingString($root.webpartinfo.SortingInfo)"></span>
+									</div>
+									<div class="col-md-1">
+										<span class="glyphicon glyphicon-trash" ng-click="removeColumnFromSortingString($root.webpartinfo.SortingInfo, $index)"></span>
+									</div>-->
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 form-group">
+							<label class="full_width no-padding">Filtering<span class="no-padding" data-toggle="popover" data-placement="Right" data-trigger="hover" data-content="Filtring Description" data-original-title="" title=""><img style="max-width:15px;" src="/site/EI/SiteCollectionImages/ICONS/24/infoIcon.png"></span></label>
+							<div class="no-padding">
+								Column Filters
+								<div class="panel panel-default">
+									<div ng-if="item.Type!='QueryString'" class="row" style="padding:15px;" ng-repeat="item in $root.webpartinfo.filters">
+										<div class="col-md-4">
+											<select class="form-control" ng-model="item.Title">
+												<option value="">Select Column</option>
+												<option value="Item_x002d_Rank">Item Rank</option>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<select class="form-control" ng-model="item.Operator">
+												<option value="Eq">is equal to</option>
+												<option value="Neq">is not equal to</option>
+												<option value="Gt">is greater than</option>
+												<option value="Lt">is less than</option>
+												<option value="Geq">is greater than or equal to</option>
+												<option value="Leq">is less than or equal to</option>
+												<option value="Contains">contains</option>
+											</select>
+										</div>
+										<div class="col-sm-1">
+											<input class="form-control" type="text" placeholder="Value" ng-model="item.Value">
+										</div>
+										<div class="col-md-2">
+											<select class="form-control" ng-model="item.ConditionalOperator">
+												<option value="And">AND</option>
+												<option value="Or">OR</option>
+											</select>
+										</div>
+										<div class="col-md-1">
+											<span class="glyphicon glyphicon-trash" ng-click="removeFilter($index)"></span>
+										</div>
+									</div>
+									<div class="row">
+										<button type="button" class="btn btn-primary pull-right" style="margin-right:20px;margin-bottom:10px;" ng-click="AddMoreFilters()">Add Filters</button>
+									</div>
+								</div>
+								QueryString Filters<span class="no-padding" data-toggle="popover" data-placement="Right" data-trigger="hover" data-content="QueryString Description" data-original-title="" title=""><img style="max-width:15px;" src="/site/EI/SiteCollectionImages/ICONS/24/infoIcon.png"></span>
+								<div class="panel panel-default">
+									<div ng-if="item.Type=='QueryString'" class="row" style="padding:15px;" ng-repeat="item in $root.webpartinfo.filters">
+										<div class="col-sm-4">
+											QueryString contains in Columns
+										</div>
+										<div class="col-md-8">
+											<div class="row" style="padding:15px;" ng-repeat="column in item.Columns">
+												<div class="col-md-10">
+													<select class="form-control" ng-model="column.Field">
+														<option value="">Select Column</option>
+														<option value="Title">Title</option>
+														<option value="MainActivity">Main Activity</option>
+														<option value="MainTopics">Main Topics</option>
+														<option ng-if="$root.webpartinfo.ItemType=='Document'" value="Document_x002d_Type">Document Type</option>
+														<option value="Partner_x002d_Countries">Partner Countries</option>
+													</select>
+												</div>
+												<div class="col-md-1">
+													<span ng-if="$index==item.Columns.length-1" class="glyphicon glyphicon-plus" ng-click="addColumnInQueryString(item)"></span>
+												</div>
+												<div class="col-md-1">
+													<span class="glyphicon glyphicon-trash" ng-click="removeColumnFromQueryString(item, $index)"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-form>
+				</div>
+			</div>
+			
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" ng-click="SaveSettings()">Save</button>
+			<button type="button" class="btn btn-default" ng-click="cancelItem()">Cancel</button>
+		</div>
+	</div>
+	
+</div>

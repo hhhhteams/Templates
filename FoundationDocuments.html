@@ -1,0 +1,175 @@
+﻿
+<div ng-cloak class="">
+    <!--start of key Documents-->
+    <div class="panel panel-default" ng-show="Documents.length>0">
+        <div class="panel-heading panel-new-head" title="Documents">
+
+            <h3 class="panel-title PadR0">
+                {{webPartInfo.Title}}
+                <span class="addtoggle pull-right" style="margin-top:-7px;">
+                    <span class="dropdown">
+                        <page-settings-info webpartid="'RelevantDocuments'"></page-settings-info>
+                        <!--<span class="glyphicon glyphicon-menu-hamburger dropdown-toggle page-content" style="cursor:pointer;" data-toggle="dropdown"></span>-->
+                    </span>
+                </span>
+            </h3>
+
+            <div class="col-md-3 view-all">
+
+                <webpart-settings-info webpartinfo="webPartInfo"></webpart-settings-info>
+            </div>
+        </div>
+        <div class="panel-body" ng-if="webPartInfo.View == 'Boxed'">
+            <div class="form-group">
+                <div ng-show="Documents =='undefined' || Documents =='null' || Documents.length==0">
+                    <div role="alert" class="text-center">
+                        No document available
+                    </div>
+                </div>
+                <div class="publicationItem" ng-repeat="document in Documents">
+                    <div class="" id="header">
+                        <div class="spotlighttitle mgadd">
+                            <img ng-if="document.File_x0020_Type == 'pdf'" alt="" class="arrow_up" title="{{document.Title}}" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/icon_pdf_16.jpg">
+                            <img ng-if="document.File_x0020_Type == 'aspx'" alt="" class="arrow_up" title="{{document.Title}}" ng-src="/_layouts/15/images/icgen.gif?rev=23">
+                            <img ng-if="document.File_x0020_Type == 'docx'" alt="" class="arrow_up" title="{{document.Title}}" ng-src="/_layouts/15/images/icgen.gif?rev=23">
+                            <span ng-if="document.File_x0020_Type == 'aspx'">
+                                <a ng-href="{{document.URL}}?web=1" target="_blank">
+                                    <p class="filter-input">
+                                        <span ng-if="document.Title != undefined">
+                                            {{document.Title}}
+                                            <span ng-if="document.Year!=undefined">({{document.Year}})</span>
+                                        </span><span ng-if="document.Title == undefined">{{document.FileLeafRef}} <span ng-if="document.Year!=undefined">({{document.Year}})</span></span>
+                                    </p>
+                                </a>
+                            </span>
+                            <span ng-if="document.File_x0020_Type != 'aspx'">
+                                <a ng-href="{{document.EncodedAbsUrl}}?web=1" target="_blank">
+                                    <p class="filter-input">
+                                        <span ng-if="document.Title != undefined">
+                                            {{document.Title}}
+                                            <span ng-if="document.Year!=undefined">({{document.Year}})</span>
+                                        </span><span ng-if="document.Title == undefined">{{document.FileLeafRef}} <span ng-if="document.Year!=undefined">({{document.Year}})</span></span>
+                                    </p>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="  tabdetail">
+                        <div id="imagedetail">
+                            <img ng-if="document.Item_x0020_Cover == null" class="image" ng-src="{{baseUrl}}/PublishingImages/Covers/default/cover.png?RenditionID=14" title="">
+                            <img ng-if="document.Item_x0020_Cover != null" class="image" ng-src="{{document.Item_x0020_Cover}}?RenditionID=12" title="">
+                        </div>
+                        <div id="marg-p" class="pl-5">
+                            <div>
+                                <strong>
+                                    <span ng-if="document.MainAuthors != undefined && document.Institution !=undefined">
+                                        {{document.Institution}} - {{document.MainAuthors}}
+                                    </span>
+                                    <span ng-if="document.Institution ==undefined && document.MainAuthors !=undefined ">
+                                        {{document.MainAuthors}}
+                                    </span>
+                                    <span ng-if="document.MainAuthors ==undefined && document.Institution !=undefined ">
+                                        {{document.Institution}}
+                                    </span>
+                                    <span ng-if="document.FileSize">
+                                        [{{document.FileSize}}]
+                                    </span>
+                                </strong>
+                                <a ng-if="item.siteType == item.siteType " class="hreflink ng-scope" ng-click="editSharewebItem(item.Id, item.siteType, 'Document')">
+                                    <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/_layouts/images/edititem.gif" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/_layouts/images/edititem.gif">
+                                </a>
+                                <a ng-if="isOwner && document.siteType == 'Main Site'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(document.ID, 'public', 'Document')">
+                                    <img src="/_layouts/images/edititem.gif">
+                                </a>
+                                <a ng-if="isOwner && document.siteType == 'Community'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(document.ID, 'memberarea', 'Document')">
+                                    <img src="/_layouts/images/edititem.gif">
+                                </a>
+                                <a ng-if="isOwner && document.siteType == 'Team'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(document.ID, 'team', 'Document')">
+                                    <img src="/_layouts/images/edititem.gif">
+                                </a>
+                                <a ng-if="isOwner && document.siteType == 'Cep'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(document.ID, 'cep', 'Document')">
+                                    <img src="/_layouts/images/edititem.gif">
+                                </a>
+                            </div>
+                            <div class="row">
+                                <span ng-bind-html="document.Item_x0020_Description | trustedHTML"></span>
+                            </div>
+                            <div class="row">
+                                <img ng-if="document.French_x0020_Version != null && document.French_x0020_Version != undefined" class="flagstyle" ng-src="{{baseUrl}}/SiteCollectionImages/Flags/languages/icon_language_fr.jpg"><a ng-if="document.French_x0020_Version != null && document.French_x0020_Version != undefined" ng-href="{{document.French_x0020_Version}}" target="_blank">French version</a>
+                                <img ng-if="document.Spanish_x0020_Version != null && document.Spanish_x0020_Version != undefined" class="flagstyle" ng-src="{{baseUrl}}/SiteCollectionImages/Flags/languages/icon_language_sp.jpg"><a ng-if="document.Spanish_x0020_Version != null && document.Spanish_x0020_Version != undefined" ng-href="{{document.Spanish_x0020_Version}}" target="_blank">Spanish version</a>
+                                <img ng-if="document.German_x0020_Version != null && document.German_x0020_Version != undefined" class="flagstyle" ng-src="{{baseUrl}}/SiteCollectionImages/Flags/languages/icon_language_de.jpg"><a ng-if="document.German_x0020_Version != null && document.German_x0020_Version != undefined" ng-href="{{document.German_x0020_Version}}" target="_blank">German version</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" ng-if="webPartInfo.View == 'List'">
+            <div class="form-group" style="margin-bottom:5px !important;">
+                <div ng-show="Documents =='undefined' || Documents =='null' || Documents.length==0">
+                    <div role="alert" class="text-center">
+                        No document available
+                    </div>
+                </div>
+                <div class="" ng-hide="Documents =='undefined' || Documents =='null' || Documents.length==0">
+                    <div class="pt-0">
+                        <ul id="documents" class="table">
+                            <li ng-show="item.flag==true" class="for-lis tdrows" ng-repeat="item in Documents | orderBy:orderBy:reverse">
+                                <div class="display_hide" style="width:7%;">
+                                    <a target="_blank" ng-href="{{item.FileDirRef}}">
+                                        <img ng-src="/_layouts/15/images/folder.gif">
+                                    </a>
+                                </div>
+                                <div class="display_hide" style="width:7%;" class="padLR">
+                                    <img ng-if="item.File_x0020_Type == 'pdf'" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/icon_pdf_16.jpg">
+                                    <img ng-if="item.File_x0020_Type != 'flv' && item.File_x0020_Type != 'js' && item.File_x0020_Type != 'css' && item.File_x0020_Type != 'zip' && item.File_x0020_Type != 'aspx' && item.File_x0020_Type != 'mp4' && item.File_x0020_Type != 'pdf' && item.File_x0020_Type != 'jpg' && item.File_x0020_Type != 'png'" ng-src="/_layouts/15/images/ic{{item.File_x0020_Type}}.png">
+                                    <img ng-if="item.File_x0020_Type == 'flv' || item.File_x0020_Type == 'js' || item.File_x0020_Type == 'css' || item.File_x0020_Type == 'zip' || item.File_x0020_Type == 'aspx' || item.File_x0020_Type == 'mp4' || item.File_x0020_Type == 'jpg' || item.File_x0020_Type == 'png'" ng-src="/_layouts/15/images/icgen.gif?rev=23">
+                                </div>
+                                <div style="width:7%;" class="padLR">
+                                    <span ng-if="item.siteType=='Community'&& item.FileDirRef.indexOf('EDA Only')==-1">
+                                        <img class="imgdot" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/MA_dot.png">
+                                    </span>
+                                </div>
+
+                                <div style="width:72%;" class="padLR">
+
+                                    <a target="_blank" ng-href="{{item.EncodedAbsUrl}}?web=1">
+                                        <span ng-if="item.Title!=undefined" data-ng-bind="item.Title"></span>
+                                        <span ng-if="item.Title==undefined" data-ng-bind="item.Name"></span>
+                                    </a>
+                                </div>
+                                <!--<div class="year padLR" style="width:15%;">
+                                    {{item.CreatedDate}}
+                                </div>
+                                <div class="year padLR" style="width:25%;">
+                                    {{item.Author}}
+                                </div>-->
+                                <div class="display_hide padLR" style="width:7%;">
+
+                                    <a ng-if="item.siteType == item.siteType " class="hreflink ng-scope" ng-click="editSharewebItem(item.ID, item.siteType, 'Document')">
+                                        <img ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/_layouts/images/edititem.gif">
+                                    </a>
+
+                                    <a ng-if="isOwner && item.siteType == 'Main Site'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(item.ID, 'public', 'Document')">
+                                        <img src="/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a ng-if="isOwner && item.siteType == 'Community'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(item.ID, 'memberarea', 'Document')">
+                                        <img src="/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a ng-if="isOwner && item.siteType == 'Team'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(item.ID, 'team', 'Document')">
+                                        <img src="/_layouts/images/edititem.gif">
+                                    </a>
+                                    <a ng-if="isOwner && item.siteType == 'Cep'" class="hreflink padding-left display_hide" ng-click="editSharewebItem(item.ID, 'cep', 'Document')">
+                                        <img src="/_layouts/images/edititem.gif">
+                                    </a>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

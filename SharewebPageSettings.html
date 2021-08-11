@@ -1,0 +1,86 @@
+﻿<script>
+    $(function () {
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+                $(this).toggleClass('open');
+
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+                $(this).toggleClass('open');
+
+            });
+    });
+</script>
+<div class="addtoggle fortablee pull-right Feedback">
+    <span class="dropdown">
+        <span class="glyphicon glyphicon-menu-hamburger dropdown-toggle page-content hreflink"
+              data-toggle="dropdown"></span>
+        <ul class="dropdown-menu  dropdown-menu-right add">
+            <li id="li-brdr" ng-if="isOwner==true">
+                <a class="hreflink"
+                   ng-click="initiateFeedback('HHHH Feedback SP')" id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    HHHH Feedback SP
+                </a>
+            </li>
+            <li id="li-brdr" ng-if="isOwner==true">
+                <a class="hreflink" ng-click="initiateFeedback('HHHH Bug')"
+                   id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    HHHH Bug
+                </a>
+            </li>
+            <li id="li-brdr" ng-if="isOwner==true">
+                <a class="hreflink" ng-click="initiateFeedback('HHHH Quick')"
+                   id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    HHHH Quick
+                </a>
+            </li>
+            <li id="li-brdr" ng-if="isOwner==true">
+                <a class="hreflink"
+                   ng-click="initiateFeedback('HHHH Component Page')" id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    HHHH Component Page
+                </a>
+            </li>
+            <li id="li-brdr" ng-show="currentUserId!=14 && currentUserId!=23 && currentUserId!=41">
+                <a class="hreflink"
+                   ng-click="initiateFeedback('Call Notes')" id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    Call Notes
+                </a>
+            </li>
+            <!--<li id="li-brdr" ng-if="isOwner==true">
+                <a class="hreflink"
+                   ng-click="initiateFeedback('Meeting Minutes')" id="edit-text">
+                    <span class="glyphicon glyphicon-comment menu_commentbar" id="font-icon"></span>
+                    Meeting Minutes
+                </a>
+            </li>-->
+            <li id="li-brdr">
+                <a class="hreflink" ng-click="SharewebAdminHelp()" id="edit-text">
+
+                    <span class="glyphicon glyphicon-question-sign menu_commentbar" id="font-icon"></span>
+                    Admin Help
+                </a>
+            </li>
+            <li id="li-brdr">
+                <a class="hreflink" ng-click="loadPagesHelpInfo()" id="edit-text">
+                    <span class="glyphicon glyphicon-question-sign menu_commentbar" id="font-icon"></span>
+                    Help
+                </a>
+            </li>
+
+
+        </ul>
+    </span>
+    <!--<a ng-hide="ctrl.webpartid=='sharewebAnCToolPopup' || ctrl.webpartid=='CommentBox' || ctrl.webpartid=='MainFolder' || ctrl.webpartid=='Subcomponents' || ctrl.webpartid=='RelevantTasks'" class="hreflink mailicontab"><span ng-click="Openmail()" class="dropdown"><img class="mailicons" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_maill.png"></span></a>-->
+    <a ng-show="ctrl.webpartid==undefined" class="hreflink mailicontab"><span ng-click="Openmail()" class="dropdown"><img class="mailicons" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_maill.png"></span></a>
+
+</div>
+
+   
+    

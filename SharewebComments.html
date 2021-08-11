@@ -1,0 +1,204 @@
+﻿<link rel="stylesheet" type="text/css" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_style.min.css" />
+<link  rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.css" />
+<link  rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/font-awesome.min.css" />
+
+<style>
+	.pad0 {
+		padding: 0px;
+		margin-bottom: 5px;
+	}
+	
+</style>
+<div id="SharewebCommentsId" ng-cloak>
+	<div class="panel panel-default">
+		<div class="panel-heading" title="Latest Comments">
+			<h3 class="panel-title">
+				​ <span>Latest Comments</span>
+				<a class="hreflink pull-right morelink" title="Click to Reply" ng-click="EditDiscussion(SharewebCommentItem)"><span ng-if="AllCommentDetails.length>2"> All Comments({{AllCommentDetails.length}})</span></a>
+			</h3>
+		</div>
+		<div class="panel-body" style="padding:0px;">
+			<ng-form name="CommentForm" novalidate role="form">
+				<div class="publicationItem" ng-repeat="item in AllCommentDetails  | limitTo: -2 | orderBy:orderBy:reverse">
+					<div class="row" id="public-item">
+						<div class="col-sm-3 icon-responsive" title={{item.AuthorName}} data-toggle="popover" data-trigger="hover">
+							<!--<img src="/site/ei/_layouts/15/userphoto.aspx?size=S&accountname={{item.Author.Name.split("|")[2]}}">-->
+							<img ng-if="item.AuthorImage==''" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_user.jpg">
+							<img ng-if="item.AuthorImage!=''" ng-src="{{item.AuthorImage}}">
+						</div>
+                            <span class="footerUsercolor"></span> {{item.Created | date:'dd MMM yyyy HH:mm'}}
+							<a  class="hreflink" ng-click="editcomment(item);"><img style="width:22px;" src="/_layouts/images/edititem.gif"></a>
+							<a ng-if="item.editable!=true" class="hreflink" title="Delete" ng-click="saveComment(item,'delete')"><img style="width:22px;" src="/_layouts/images/delete.gif"></a>
+							<a ng-show="item.editable==true" class="hreflink" title="Save" ng-click="saveComment(item,'update')"><img style="width:22px;" ng-src="https://www.shareweb.ch/group/Networks/SiteCollectionImages/ICONS/32/save.png"></a>
+							<a ng-show="item.editable==true" class="hreflink" title="Cancel" ng-click="cancelComment(item)"><img style="width:22px;" src="https://www.shareweb.ch/group/Networks/SiteCollectionImages/ICONS/32/cancel.png"></a>
+							<div class="common_comment">
+								<span ng-if="item.editable==undefined || item.editable==false" ng-bind-html="item.Body | trustedHTML"></span>
+								<textarea style="overflow:hidden;height: 50px !important;" ng-if="item.editable==true" rows="4" class="form-control" ng-model="item.Body"></textarea>
+							</div>
+						
+					</div>
+				</div>
+				<div class="">
+					<div class="col-sm-12" style="padding:3px;"></div>
+					<div class="col-sm-12" id="button-cateogry">
+						<textarea id="body" class="full_width" style="display:block;" rows="4" ng-required="true" placeholder="Add Comment" ng-model="ReplyBody"></textarea>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12 form-group inner-tabb mt-5">
+						<div class="col-sm-6">
+							<span><a class="hreflink pull-left" id="submit" ng-click="addReply()">Advanced Editor</a></span>
+						</div>
+
+						<div class="col-sm-6">
+							<button type="button" id="btn" class="btn btn-primary pull-right" ng-disabled="CommentForm.$error.required" ng-click="createComment()" title="Save changes & exit">Save</button>
+						</div>
+					</div>
+				</div>
+			</ng-form>
+		</div>
+	</div>
+	<div id="EditDiscussion" class="modal fade in" role="dialog" style="display: none;">
+		<div class="modal-dialog">
+			<div class="panel panel-default">
+				<div class="panel-title">
+					<h3>
+						<button type="button" class="close" ng-click="CancelEditDiscussion()" style="min-width: 10px;">&times;</button>
+						<h3 ng-if="SharewebCommentItem.Page_x002d_Title!=undefined && SharewebCommentItem.Title==undefined">Comments - {{SharewebCommentItem.Page_x002d_Title}}</h3>
+						<h3 ng-if="SharewebCommentItem.Title!=undefined && SharewebCommentItem.Page_x002d_Title==undefined">Comments - {{SharewebCommentItem.Title}}</h3>
+						<h3 ng-if="SharewebCommentItem.Title!=undefined && SharewebCommentItem.Page_x002d_Title!=undefined">Comments - {{SharewebCommentItem.Title}}</h3>
+					</h3>
+				</div>
+				<div class="modal-body">
+					<ng-form name="EditForm" novalidate role="form">
+						<div class="col-sm-12 comment-scroll">
+							<h4><strong>All Comments:</strong></h4>
+						</div>
+						<div class="col-sm-12 form-group">
+
+							<div ng-repeat="item in AllCommentDetails | orderBy:orderBy:reverse">
+								<div class="col-sm-offset-1 col-sm-10 form-group add_cmnt ">
+									<div class="row">
+										<div class="col-sm-2 cmnt_img">
+											<!--<img src="/site/ei/_layouts/15/userphoto.aspx?size=S&accountname={{item.Author.Name.split("|")[2]}}">-->
+											<img style="width:95%;" ng-if="item.AuthorImage==''" src="/site/EI/_layouts/15/userphoto.aspx">
+											<img style="width:95%;" ng-if="item.AuthorImage!=''" ng-src="{{item.AuthorImage}}">
+
+										</div>
+
+										<div class="col-sm-10">
+											<div class="row">
+												<span class="footerUsercolor">{{item.AuthorName}}</span> - <span style="font-size:10px;">{{item.Created | date:'dd MMM yyyy HH:mm'}}</span>
+												<a ng-if="item.editable!=true && (isOwner==true)" class="hreflink" ng-click="editcomment(item);"><img src="/_layouts/images/edititem.gif"></a>
+												<a ng-if="item.editable!=true && (isOwner==true)" class="hreflink" title="Delete" ng-click="saveComment(item,'delete')"><img src="/_layouts/images/delete.gif"></a>
+
+												<a ng-show="item.editable==true" class="hreflink" title="Save" ng-click="saveComment(item,'update')"><img style="width:22px;" ng-src="https://www.shareweb.ch/group/Networks/SiteCollectionImages/ICONS/32/save.png"></a>
+												<a ng-show="item.editable==true" class="hreflink" title="Cancel" ng-click="cancelComment(item)"><img style="width:22px;" src="https://www.shareweb.ch/group/Networks/SiteCollectionImages/ICONS/32/cancel.png"></a>
+
+											</div>
+											<div class="row">
+												<div class="col-sm-11 pad0">
+													<span ng-if="item.editable==undefined || item.editable==false" ng-bind-html="item.Body | trustedHTML"></span>
+													<textarea class="full_width" style="overflow-y:auto;" ng-show="item.editable==true" rows="4" ng-model="item.Body"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 ">
+							<div class="col-sm-offset-1 col-sm-10 padL-0 PadR0 form-group">
+								<textarea id="body" rows="4" style="width:100%; display:block;" ng-required="true" placeholder="Add Comment" ng-model="ReplyBody"></textarea>
+							</div>
+							<div class="col-sm-1" style="padding-left:0px;">
+								<!-- <a style="margin-right:10px;margin-bottom:6px;font-size:15px;" class="hreflink" ng-click="addReply()" title="Click to reply using advanced editor."> -->
+								<!-- <img style="width: 45px;margin-top: 5px;" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/edit-external.jpg"></a> -->
+							</div>
+						</div>
+
+					</ng-form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-disabled="EditForm.$error.required" ng-click="createComment()" title="Save changes & exit">Save</button>
+					<button type="button" class="btn btn-default" ng-click="CancelEditDiscussion()" title="Discard unsaved changes & exit">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="addReplyPopUp" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+		<div class="modal-dialog" style="width:50%">
+			<div class="panel panel-default">
+				<div class="panel-title">
+					<!-- <h3 ng-if="SharewebCommentItem.Page_x002d_Title!=undefined">Comment - {{SharewebCommentItem.Page_x002d_Title}}</h3> -->
+					<h3 ng-if="SharewebCommentItem.Title!=undefined">Comment - {{SharewebCommentItem.Title}}</h3>
+				</div>
+				<div class="modal-body">
+					<div class="">
+						<div class="col-sm-12" style="padding-top:15px;">
+							<div id="addReplybody" ng-model="replyComment"></div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveReply()" title="Save changes & exit">Save</button>
+					<button type="button" class="btn btn-default" ng-click="CancelReply()" title="Discard unsaved changes & exit">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="updateReplyPopUp" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" id="mymodal">
+		<div class="modal-dialog" id="update">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <h3 ng-if="SharewebCommentItem.Page_x002d_Title!=undefined">Reply - {{SharewebCommentItem.Page_x002d_Title}}</h3> -->
+					<h3 ng-if="SharewebCommentItem.Title!=undefined">Reply - {{SharewebCommentItem.Title}}</h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<div id="updateReplybody" ng-model="updateReplyComment"></div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveUpdatedReply()" title="Save changes & exit">Save</button>
+					<button type="button" class="btn btn-default" ng-click="CancelupdateReplyPopUp()" title="Discard unsaved changes & exit">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="Updatecomments" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+		<div class="modal-dialog modal-help">
+			<div class="modal-content">
+				<div class="modal-header">
+				<div class="modal-title">
+				   <h3>Update Comment
+					<button type="button" class="close" ng-click="cancelCommentPopUp()" style="min-width: 10px;">&times;</button>
+					</h3>
+				</div>
+				</div>
+				<div class="modal-body tab-content" style="overflow-y: hidden;">
+					<div class="" style="padding-top:15px;">
+						<div class="col-md-12 form-group">
+							<div id="UpdatecommentsItemm" class="forFullScreenButton1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" style="border-top:1px solid transparent;">
+					<div>
+						<span class="pull-right">
+							<button type="button" class="btn btn-primary" ng-click="saveUpdateComment()">Save</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelCommentPopUp()">Cancel</button>
+						</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

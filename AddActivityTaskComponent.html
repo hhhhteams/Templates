@@ -1,0 +1,443 @@
+﻿<script type="text/javascript"
+        src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/CreateMeetingMinutesPopup.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/HCTemplateControllers.js"></script>
+<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/TeamComposition.js"></script>
+<style>
+    #autosugesstion {
+        z-index: 1051;
+        position: absolute;
+        left: 489px;
+        top: 103px;
+        width: 557px;
+        background: #fff;
+    }
+
+    .userimgsize1 {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .suffixaddimg1 {
+        width: 26px !important;
+        height: 26px;
+        padding: 4px 4px;
+        top: 5px;
+        left: -5px;
+        font-size: 14px !important;
+    }
+
+    .ml-8 {
+        margin-left: 8px;
+    }
+
+    .PortfolioProfilePage .page-content {
+        height: 0px;
+    }
+
+    #pageTitle {
+        display: none;
+    }
+
+    .boxbdrdesign ul {
+        list-style: square;
+        padding-left: 17px;
+    }
+
+    #contentRow {
+        padding-top: 0px !important;
+    }
+
+    .relevant-menu .addtoggle.Feedback {
+        margin-top: -4px;
+    }
+
+    .marbtmpara span p {
+        margin-bottom: 0px !important;
+    }
+
+    .panel-default > .panel-heading {
+        color: #000066;
+    }
+
+    span.glyphicon.glyphicon.glyphicon-chevron-down.direction-arrow.arrow_down {
+        color: #ccc;
+        font-size: 13px;
+    }
+
+    .toggle-box-content + label:before {
+        margin-right: 2px;
+    }
+
+    .right-htext {
+        font-size: 13px;
+        margin-top: 22px;
+    }
+
+    #s4-bodyContainer {
+        width: 60% !important
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#accordion > div").click(function () {
+            if (false == $(this).next().is(':visible')) {
+                $('#accordion > ul').slideUp(300);
+            }
+            $(this).next().slideToggle(300);
+        });
+    });
+</script>
+<div class="{{(Task.Services != undefined&&Task.Services.results.length >0)||(PortfolioTypeColor=='Service') ||(Task.Portfolio_x0020_Type!=undefined && Task.Portfolio_x0020_Type=='Service')||(Portfolio_x0020_Type!=undefined && Portfolio_x0020_Type=='Service')?'taskprofilepagegreen':''}}{{Task.Events != undefined&&Task.Events.results.length >0?'taskprofilepageorange':''}} ComponentPortfoliopageblue">
+    <div class="modal FeedBackIconSize" id="Createchildactivitypopup" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-md" style="width: 800px;">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" style="min-width:10px;margin-top: 2px;" class="close"
+                            ng-click="cancelopenCreateItem('Createchildactivitypopup');">
+                        &times;
+                    </button>
+
+                    <h3>
+                        Create Item
+                        <page-settings-info webpartid="'CreateChildItemPopup'"></page-settings-info>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content bdrbox">                       
+                            <div class="col-sm-12 form-group padL-0 PadR0">
+                                <label ng-show="createChildItem==undefined" class="col-sm-9 mb-5 mt-10  titleclrgreen  padL-0">Title</label>
+                                <span class="col-sm-2  mb-5 mt-10 padL-0" ng-show="createChildItem==undefined">
+                                    <input type="radio" name="createItemItemTypenew" ng-model="SharewebTasknewType"
+                                           value="Workstream" ng-click="selectSharewebTaskType('Workstream')" checked="checked">
+                                    <label>Workstream</label>
+                                </span>
+                                <span class="col-sm-1  mb-5 mt-10 padL-0"
+                                      ng-show="createChildItem==undefined">
+                                    <input type="radio" name="createItemItemTypenew" ng-model="SharewebTasknewType"
+                                           value="Task" ng-click="selectSharewebTaskType('Task')">
+                                    <label>Task</label>
+                                </span>
+
+                                <div class="col-sm-12 padL-0 PadR0" ng-repeat-start="item in ChildItemTitle">
+                                    <label ng-show="$index!=0" class="col-sm-5 mb-5 mt-10  titleclrgreen padL-0">Title</label>
+
+                                    <div class="col-sm-11 padL-0 PadR0" style="width: 96%;">
+                                        <input class="form-control full_width mb-10" type="text"
+                                               ng-model="item.Title" placeholder="Enter Child Item Title"
+                                               ng-required="true">
+                                    </div>
+                                    <div class="col-sm-1 padL-0" style="width: 4%;">
+                                        <a ng-show="ChildItemTitle.length>1 && $index!=0 " style="cursor:pointer;"
+                                           title="Delete" data-toggle="modal"
+                                           ng-click="RemoveFeedbackColumn(ChildItemTitle,$index)">
+                                            <img class="" ng-src="/_layouts/images/delete.gif">
+                                        </a>
+                                    </div>
+                                    <div ng-show="item.SelectItemRank!=''" class="col-sm-12 padL-0 PadR0 mb-10" style="width: 96%;">
+                                        <label class="full_width"
+                                               ng-bind-html="GetColumnDetails('ItemRank') | trustedHTML"></label>
+                                        <select class="form-control" id="ItemRankType"
+                                                ng-model="item.SelectItemRank">
+                                            <option value="">Select Item Rank</option>
+                                            <option ng-repeat="item in SharewebItemRank"
+                                                    value="{{item.rank}}">
+                                                {{item.rankTitle}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1 padL-0 " style="width: 4%;margin-top:18px">
+                                        <a ng-show="ChildItemTitle.length>1 && $index!=0 && item.SelectItemRank!=''" style="cursor:pointer;"
+                                           title="Delete" data-toggle="modal"
+                                           ng-click="RemoveFeedbackColumn(ChildItemTitle,$index,'ItemRank')">
+                                            <img class="" ng-src="/_layouts/images/delete.gif">
+                                        </a>
+                                    </div>
+                                    <div ng-show="$index==0" class="col-sm-11 padL-0 PadR0" style="width: 96%;">
+                                        <Team-Composition></Team-Composition>
+                                    </div>
+                                    <div class="clearfix">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 mb-20 padL-0 PadR0" ng-repeat-end>
+                                    <div class="col-sm-12 padL-0" ng-repeat="items in item.Child">
+                                
+                                            <label class="col-sm-12 mb-5 mtop5 titleclrgreen padL-0">Description</label>
+                                  
+                                        <div class="col-sm-11 padL-0 PadR0" style="width:96%">
+                                            <textarea rows="4" ng-model="items.Description"></textarea>
+                                        </div>
+                                        <div class="col-sm-1 padL-0" style="width: 4%;">  
+                                            <a style="cursor:pointer;" title="Delete" data-toggle="modal"
+                                               ng-click="RemoveFeedbackColumn(ChildItemTitle,item.Id,'Description')">
+                                                <img class="" ng-src="/_layouts/images/delete.gif">
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                    
+                    </div>
+                </div>
+                <div class="modal-footer pr-5">
+                    <a class="hreflink pull-left" ng-click="addNewTextField(Index)">
+                        <img class="icon-sites-img"
+                             ng-show="(Task.Component.results.length>0 && !Task.Services.results.length>0) ||(!Task.Component.results.length>0 && !Task.Services.results.length>0 && !Task.Events.results.length>0)"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/Add-New.png" />
+                        <img class="icon-sites-img"
+                             ng-show="Task.Services != undefined && Task.Services.results.length >0"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Service_Icons/Add-New.png" />
+                        <img class="icon-sites-img"
+                             ng-show="Task.Events != undefined && Task.Events.results.length >0"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Event_Icons/Add-New.png" />
+                        Add more child items
+                    </a>
+
+                    <button type="button" class="btn btn-primary" ng-if="ChildItemTitle.length==1"
+                            ng-click="createChildItems1('CreatePopup');" ng-disabled="ChildItemTitle[0].Title==''">
+                        Create & Open Popup
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="createChildItems1('Create');"
+                            ng-disabled="ChildItemTitle[0].Title==''">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal FeedBackIconSize" id="CreateChildpoup" role="dialog" style="display:none;">
+        <div class="modal-dialog modal-md" style="width: 800px;">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" style="min-width:10px;margin-top: 2px;" class="close"
+                            ng-click="cancelopenCreateItem('CreateChildpoup');">
+                        &times;
+                    </button>
+
+                    <h3>
+                        Create Item
+                        <page-settings-info webpartid="'CreateChildItemPopup'"></page-settings-info>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 form-group padL-0 PadR0">
+                                <label ng-show="createChildItem==undefined" class="col-sm-8 mb-5 mt-10  titleclrgreen  padL-0">Title</label>
+                                <span class="col-sm-2  mb-5 mt-10 padL-0" ng-show="createChildItem==undefined">
+                                    <input type="radio" name="createchildpopupforactivity" ng-model="SharewebTasknewType"
+                                           value="Workstream" ng-click="selectSharewebTaskType('Workstream')" checked>
+                                    <label>Workstream</label>
+                                </span>
+                                <span class="col-sm-2  mb-5 mt-10 padL-0 PadR0"
+                                      ng-show="createChildItem==undefined">
+                                    <input type="radio" name="createchildpopupforactivity" ng-model="SharewebTasknewType"
+                                           value="Task" ng-click="selectSharewebTaskType('Task')">
+                                    <label>Task</label>
+                                </span>
+                                <div class="col-sm-12 padL-0" ng-repeat-start="item in ChildItemTitle">
+                                    <label ng-show="$index!=0" class="col-sm-12 mb-5 mt-10  titleclrgreen  padL-0">Title</label>
+
+                                    <div class="col-sm-11 padL-0 PadR0" style="width:96%">
+                                        <input class="form-control full_width mb-10" type="text"
+                                               ng-model="item.Title" placeholder="Enter Child Item Title"
+                                               ng-required="true">
+                                    </div>
+
+                                    <div class="col-sm-1 padL-0" style="width: 4%;">
+                                        <a ng-show="ChildItemTitle.length>1 && $index!=0 " style="cursor:pointer;"
+                                           title="Delete" data-toggle="modal"
+                                           ng-click="RemoveFeedbackColumn(ChildItemTitle,$index)">
+                                            <img class="" ng-src="/_layouts/images/delete.gif">
+                                        </a>
+                                    </div>
+                                    <div ng-show="item.SelectItemRank!=''" class="col-sm-11 padL-0 PadR0 mb-10" style="width: 96%;">
+                                        <label class="full_width"
+                                               ng-bind-html="GetColumnDetails('ItemRank') | trustedHTML"></label>
+                                        <select class="form-control" id="ItemRankType"
+                                                ng-model="item.SelectItemRank">
+                                            <option value="">Select Item Rank</option>
+                                            <option ng-repeat="item in SharewebItemRank"
+                                                    value="{{item.rank}}">
+                                                {{item.rankTitle}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-1 padL-0" style="width: 4%;margin-top:18px">
+                                        <a ng-show="ChildItemTitle.length>1 && $index!=0 && item.SelectItemRank!='' " style="cursor:pointer;"
+                                           title="Delete" data-toggle="modal"
+                                           ng-click="RemoveFeedbackColumn(ChildItemTitle,$index,'ItemRank')">
+                                            <img class="" ng-src="/_layouts/images/delete.gif">
+                                        </a>
+                                    </div>
+                                    <div ng-show="$index==0" class="col-sm-11 padL-0 PadR0" style="width: 96%;">
+                                        <Team-Composition></Team-Composition>
+                                    </div>
+                                    <div class="clearfix">
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 mb-20 padL-0 PadR0" ng-repeat-end>
+                                    <div class="col-sm-12 padL-0" ng-repeat="items in item.Child">
+                                        <label class="col-sm-12 mb-5 mtop5 titleclrgreen padL-0">Description</label>
+                                        <div class="col-sm-11 padL-0 PadR0" style="width:96%">
+                                            <textarea rows="4" ng-model="items.Description"></textarea>
+                                        </div>
+                                        <div class="col-sm-1 padL-0" style="width: 4%;">
+                                            <a style="cursor:pointer;" title="Delete" data-toggle="modal"
+                                               ng-click="RemoveFeedbackColumn(ChildItemTitle,item.Id,'Description')">
+                                                <img class="" ng-src="/_layouts/images/delete.gif">
+                                            </a>
+                                        </div>
+                                        <div class="clearfix">
+                                        </div>
+                                    </div>                                  
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pr-5 mb-15">
+                    <a class="hreflink pull-left" ng-click="addNewTextField(Index)">
+                        <img class="icon-sites-img"
+                             ng-show="(Task.Component.results.length>0 && !Task.Services.results.length>0) ||(!Task.Component.results.length>0 && !Task.Services.results.length>0 && !Task.Events.results.length>0)"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/Add-New.png" />
+                        <img class="icon-sites-img"
+                             ng-show="Task.Services != undefined && Task.Services.results.length >0"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Service_Icons/Add-New.png" />
+                        <img class="icon-sites-img"
+                             ng-show="Task.Events != undefined && Task.Events.results.length >0"
+                             ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Event_Icons/Add-New.png" />
+                        Add more child items
+                    </a>
+
+                    <button type="button" class="btn btn-primary" ng-if="ChildItemTitle.length==1"
+                            ng-click="createChildItems('CreatePopup');" ng-disabled="ChildItemTitle[0].Title==''">
+                        Create & Open Popup
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="createChildItems('Create');"
+                            ng-disabled="ChildItemTitle[0].Title==''">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal FeedBackIconSize" id="CreateTasks" role="dialog" style="display:none;">
+        <div class="modal-dialog modal-lg">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" style="min-width:10px;margin-top: 2px;" class="close"
+                            ng-click="CancelCreateTask();">
+                        &times;
+                    </button>
+                    <h3>
+                        <span ng-show="PageName!='PortfolioDatabase'"> Create Task</span>
+                        <span ng-show="PageName=='PortfolioDatabase'"> Create Activity - {{compareComponents[0].Title}}</span>
+                        <page-settings-info webpartid="'CreateTaskPopup'"></page-settings-info>
+                    </h3>
+
+                </div>
+                <div class="modal-body ">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div ng-show="PageName==undefined || PageName!='PortfolioDatabase'" class="subcategoryTasks">
+                            <a ng-show="item.Title!='Development' || item.Title!='Implementation' || item.Title!='Activities'"
+                               ng-repeat="item in SomeMetaData"
+                               ng-click="selectSubTaskCategory(item, item.Id,PageName,'CreateTask')"
+                               class="subcategoryTask" id="subcategorytasks{{item.Id}}" title="Click Task">
+                                <span class="icon-box">
+                                    <img class="icon-task" ng-if="item.Item_x005F_x0020_Cover!=undefined"
+                                         ng-src="{{item.Item_x005F_x0020_Cover.Url}}">
+                                </span>
+                                <span class="tasks-label">{{item.Title}}</span>
+                            </a>
+                        </div>
+                        <div ng-show="PageName!=undefined && PageName=='PortfolioDatabase'" class="subcategoryTasks">
+                            <a ng-show="item.Title=='Development' || item.Title=='Implementation' || item.Title=='Activity'" ng-repeat="item in SomeMetaData1"
+                               ng-click="selectSubTaskCategory(item, item.Id,PageName,'CreateTask')"
+                               class="subcategoryTask" id="subcategorytasks{{item.Id}}" title="Click Task">
+                                <span class="icon-box">
+                                    <img class="icon-task" ng-if="item.Item_x005F_x0020_Cover!=undefined"
+                                         ng-src="{{item.Item_x005F_x0020_Cover.Url}}">
+                                </span>
+                                <span class="tasks-label">{{item.Title}}</span>
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer pr-5">
+                    <button type="button" class="btn btn-default" ng-click="CancelCreateTask();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal" ng-show="checkForTask.ItemTypes!='Task'" id="CreateTasks1" role="dialog" style="display:none;">
+        <div class="modal-dialog modal-lg">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" style="min-width:10px;" class="close" ng-click="CancelCreateTask();">
+                        &times;
+                    </button>
+                    <span class="pull-right">
+                        <page-settings-info webpartid="'CreateTaskPopup'"></page-settings-info>
+                    </span>
+                    <h3>Create Task</h3>
+                </div>
+                <div class="modal-body ">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div class="row" ng-cloak>
+                            <span class="pull-right">
+                                <a ng-click="ClearSelection()" class=" hreflink">
+                                    Clear Selection<img ng-src="/_layouts/images/delete.gif">
+                                </a>
+                            </span>
+                            <div class="col-md-12">
+                                <div ng-show="PageName==undefined || PageName!='PortfolioDatabase'" class="subcategoryTasks">
+                                    <a ng-repeat="item in SomeMetaData1"
+                                       ng-click="selectSubTaskCategory(item, item.Id,PageName,'CreateTask1')"
+                                       class="subcategoryTask" id="subcategorytasks{{item.Id}}" title="Click Task">
+                                        <span class="icon-box">
+                                            <img class="icon-task" ng-if="item.Item_x005F_x0020_Cover!=undefined"
+                                                 ng-src="{{item.Item_x005F_x0020_Cover.Url}}">
+                                        </span>
+                                        <span class="tasks-label">{{item.Title}}</span>
+                                    </a>
+                                </div>
+                                <div  ng-show="PageName!=undefined &&  PageName=='PortfolioDatabase'"class="subcategoryTasks">
+                                    <a ng-show="item.Title!='Development' && item.Title!='Implementation' && item.Title!='Activity'" ng-repeat="item in SomeMetaData1"
+                                       ng-click="selectSubTaskCategory(item, item.Id,PageName,'CreateTask1')"
+                                       class="subcategoryTask" id="subcategorytasks{{item.Id}}" title="Click Task">
+                                        <span class="icon-box">
+                                            <img class="icon-task" ng-if="item.Item_x005F_x0020_Cover!=undefined"
+                                                 ng-src="{{item.Item_x005F_x0020_Cover.Url}}">
+                                        </span>
+                                        <span class="tasks-label">{{item.Title}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="CancelCreateTask();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

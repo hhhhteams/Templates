@@ -1,0 +1,66 @@
+<!-- <script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/EditTaskTimeController.js"></script> -->
+<div>
+    <a class="hreflink ng-scope no-padding" data-toggle="modal">
+        <span ng-if="showtime">
+            {{totletimeparentcount|number:1}}
+        </span>
+        <span class="dashboard-tool tilessizetxt text-center time project-tool">
+            <span ng-if="!showtime ||showtime==undefined" ng-click="EditTaskTime()"
+                title="Click To Edit Timesheet">
+                <img class="button-icon"
+                    ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/clock-gray.png">
+            </span>
+            <span ng-if="showtime && totletimeparentcount == 0" ng-click="EditTimeSheet()"
+                title="Click To Edit Timesheet">
+                <img class="button-icon"
+                    ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/clock-gray.png">
+            </span>
+            <span ng-if="totletimeparentcount > 0 " ng-click="EditTimeSheet()" title="Click To Edit Timesheet">
+                <img class="button-icon" ng-show="Item_Type == 'Component'"
+                    ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/clock-blue.png">
+                <img class="button-icon" ng-show="Item_Type == 'Service'"
+                    ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/24/clock-green.png">
+            </span>
+            <span ng-show="IsShowHover==true" class="tooltipte">
+                <span class="tooltiptext">
+                    <p class="tooltiptitle project_active">
+                        {{TaskTitle}}
+                    </p>
+                    <div class="tooltip_Desc pad0">
+                        <div class="container-new">
+                            <ul ng-if="item.childs.length>0" class="mb-10" ng-repeat="item in AllTimeEntries">
+                                <li class="for-lis for-c0l">
+                                    <div style="width: 15%;">
+                                        <img class="wid29 padb-2" title="{{item.Title}}"
+                                            ng-src="{{item.AuthorImage}}" />
+                                    </div>
+                                    <div class="mt-5" style="width: 85%;">
+                                        <span class="bold">Total-Time:</span> {{item.TotalTime |number:1}}
+                                    </div>
+                                </li>
+
+
+                                <li class="for-lis tdrows" ng-repeat="data in item.childs">
+                                    <div style="width: 15%;">
+                                        {{data.TaskDate}}
+                                    </div>
+                                    <div style="width: 10%;">
+                                        {{data.TaskTime}}
+                                    </div>
+                                    <div style="width: 75%;">
+                                        {{data.Description | limitTo : 100}}{{data.Description.length > 100 ? '...' :
+                                        ''}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </span>
+        </span>
+    </a>
+</div>
+
+
+
+    

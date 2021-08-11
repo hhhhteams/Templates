@@ -1,0 +1,59 @@
+<div ng-cloak>
+    <div class="panel panel-default">
+        <div class="panel-title">
+            <button type="button" class="close" ng-click="cancelModal()" style="min-width: 10px;">
+                &times;
+            </button>
+            <h3>
+                All Images
+            </h3>
+        </div>
+        <div class="modal-body"  style="overflow: auto;height: 400px;">
+            <div class="form-group">
+                <div ng-show="allImages =='undefined' || allImages =='null' || allImages.length==0">
+                    <div role="alert" class="text-center">
+                        No Images available
+                    </div>
+                </div>
+                <div class=""  ng-hide="allImages =='undefined' || allImages =='null' || allImages.length==0">
+                    <div>
+                        <table id="documents" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:90%;">Title</th>
+                                    <th class="display_hide"style="width:10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in allImages">
+                                    <td classs="display_hide" ng-show="item.edit==false" style="width: 90%;" ng-bind="item.title"></td>
+                                    <td classs="display_hide" ng-show="item.edit==true" style="width: 90%;">
+                                        <input type="text" style="width: 100%;" ng-model="item.title"/>
+                                    </td>
+                                    <td ng-show="item.edit==false&&!item.loading" class="display_hide"  style="width:10%;">
+                                        <a class="hreflink padding-left display_hide" ng-click="item.edit=true">
+                                            <img ng-src="/_layouts/images/edititem.gif">
+                                        </a>
+                                    </td>
+                                    <td ng-show="item.loading" class="display_hide"  style="width:10%;">
+                                        <a class="hreflink padding-left display_hide">
+                                            <i class="fa fa-spinner" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                    <td ng-show="item.edit==true&&!item.loading" class="display_hide"  style="width:10%;">
+                                        <a class="hreflink padding-left display_hide" ng-click="saveItemChanges(item);">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
+            <!-- <button type="button" class="btn btn-primary" ng-click="saveAllChanges()">Save Changes</button> -->
+        </div>
+    </div>

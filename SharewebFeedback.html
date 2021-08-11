@@ -1,0 +1,180 @@
+﻿<style>
+    .selectedView {
+        background: #eee;
+        padding: 4px;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #069 !important;
+        background-color: #eee !important;
+        padding: 14px 12px 6px !important;
+    }
+
+    .close:hover, .close:focus {
+        color: #069 !important;
+    }
+
+    .modal-title {
+        color: #069 !important;
+        font-weight: bold !important;
+    }
+
+    button.close {
+        padding: 2px;
+    }
+
+    .contact-form {
+        margin-top: 22px;
+    }
+
+        .contact-form .textarea {
+            min-height: 220px;
+            resize: none;
+        }
+
+  
+    .form-control-feedback {
+        line-height: 50px;
+    }
+
+  
+  
+
+    .form-control-feedback {
+        line-height: 50px;
+        top: 0px;
+    }
+
+    #head {
+        padding-top: 16px !important;
+        font-weight: bold !important;
+        margin-left: 15px !important;
+        font-size: 18px !important;
+        text-align: left !important;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    #form-brdr:active {
+        border: 1px solid #069 !important;
+    }
+
+    #form-brdr {
+        border: 1px solid #a6a6a6;
+    }
+    .panel-url {
+        padding-left: 0px;
+        font-size: 16px;
+        margin-top: 0px;
+    }
+        .dropdown-menu > li > a {
+        display: inline;
+    }
+
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: transparent;
+        }
+   .container h4 {
+        font-size:16px;
+        font-weight:bold;
+    }
+  
+.table tbody > tr > td, .table thead > tr > th {
+            font-size: 14px;
+        }
+
+</style>
+<!--<span id="new" class="glyphicon glyphicon-menu-hamburger pull-right" style="cursor:pointer;"></span>-->
+<div ng-cloak>
+    <div class="panel panel-default" ng-cloak>
+		<ng-form name="SharewebFeedback" novalidate role="form">
+			<div class="modal-header">
+				<div class="panel-title">
+					<button type="button" class="close" ng-click="cancelFeedback();" style="min-width: 10px;">&times;</button>
+					<h3 class="modal-title">Add your feedback - {{$root.webpartinfo.Title}}​​​</h3>
+
+
+				</div>
+			</div>
+			<div class="panel-body tab-content">
+				<div id="table-wrapper">
+					<div id="table-scroll">
+						<div class="form-group inner-tabb col-sm-12">
+							<!--<h3 id="head">Webpart Title-<span class="panel-text">{{$root.webpartinfo.Title}}​​​</span></h3>-->
+							<label class="full_width">Webpart Title</label>
+							<span class="panel-text">{{$root.webpartinfo.Title}}​​​</span>
+							<div>
+								<div class="form-group">
+									<div>
+										<!--<h3 class="panel-url">
+											PageUrl-<span class="panel-text">{{PageUrl}}​​​</span>
+										</h3>-->
+										<label class="full_width">Page Url</label>
+										<h3 class="panel-url"><span class="panel-text">{{PageUrl}}​​​</span></h3>
+
+                                    </div>
+									<div class="form-group">
+                                        <h4 class="col-sm-6">
+                                            <input class="form-check-input" name="radiofeedback " type="radio" value="Technical Feedback" style="margin-top:-1px; margin-right:4px;" ng-click="FeedbackTask('Technical Feedback')">Technical Feedback
+                                            <input class="form-check-input" name="radiofeedback " type="radio" value="Content Feedback" style="margin-top:-1px; margin-right:4px;" ng-click="FeedbackTask('Content Feedback')"> Content Feedback1
+                                            <input class="form-check-input" name="radiofeedback " type="radio" value="HHHH Quick" style="margin-top:-1px; margin-right:4px;" ng-click="FeedbackTask('HHHH Quick')"> HHHH Quick
+
+                                        </h4>
+										<h4 class="col-sm-6"><a ng-if="isOwner" ng-click="HHHHTask()" ng-href="{{CurrentSiteUrl}}/SitePages/CreateTask.aspx?Site=EI&Type=FeedBack&Title={{$root.webpartinfo.Title}}&WebpartId={{$root.webpartinfo.WebPartId}}&SharewebSiteUrl={{SharewebSiteUrl}}">HHHH Task </a></h4>
+									</div>
+								</div>
+								<form role="form" id="contact-form" class="contact-form">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input type="text" class="form-control" id="form-brdr" name="Title" id="title" placeholder="Title" ng-model="Title" ng-required="true">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div id="editDescriptionbody" ng-model="editDescription"></div>
+											</div>
+
+										</div>
+									</div>
+									<div class="row">
+										<div id="table-wrapper">
+											<div class="col-md-12">
+												<table class="container-new table table-hover" cellspacing="0" width="100%">
+													<thead>
+														<tr class="header" ng-show="AllTasks!='undefined' && AllTasks.length>0">
+															<th class="col-md-4">Title</th>
+															<th class="col-md-4">WebPartId</th>
+															<th class="col-md-4">Status</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="item in AllTasks">
+															<td class="col-md-4"><a ng-href="{{baseUrl}}/team/Pages/Task-Profile.aspx?taskId={{item.Id}}" target="_blank">{{item.Title}}</a></td>
+															<td class="col-md-4">{{item.WebPartId}}</td>
+															<td class="col-md-4">{{item.Status}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-disabled="SharewebFeedback.$error.required" ng-click="ADDFeedback()">Save</button>
+			</div>
+
+		</ng-form>
+    </div>   
+</div>

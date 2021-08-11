@@ -1,0 +1,48 @@
+﻿<div class="component componet-portfoliblue {{Portfolio_x0020_Type=='Service'?'taskprofilepagegreen':''}}{{Portfolio_x0020_Type=='Events'?'taskprofilepageorange':''}}" ng-cloak>
+    <div>
+
+    </div>
+    <div class="modal" id="TaskApprovalRejectionpopup" role="dialog" style="display:none;">
+        <div class="modal-dialog modal-md">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" style="min-width:10px;" class="close" ng-click="cancelTaskApprovalRejection();">
+                        &times;
+                    </button>
+                    <span>
+                        <page-settings-info webpartid="'taskApproval'"></page-settings-info>
+                    </span>
+                    <h3>
+                        {{PopupTitle}}
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div class="col-sm-12 mt-10 padL-0 PadR0">
+                            <div class="col-sm-12 form-group padL-0 PadR0">
+                                <textarea rows="4" ng-model="CommentTaskApprovalRejection"></textarea>
+                            </div>
+
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-show="PopupTitle=='Task Approval'"
+                            ng-click="TaskApprovalRejection('Approve');">
+                        Approve
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-show="PopupTitle!='Task Approval'"
+                            ng-click="TaskApprovalRejection('Reject');">
+                        Reject
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="cancelTaskApprovalRejection();">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

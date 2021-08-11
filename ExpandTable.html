@@ -1,0 +1,106 @@
+﻿<style>
+    #s4-bodyContainer.expandedtablesize100 {
+        width: 1600px !important;
+    }
+
+    #s4-bodyContainer.expandedtablesize75 {
+        width: 75% !important;
+    }
+
+    #s4-bodyContainer.expandedtablesize60 {
+        width: 62.5% !important;
+    }
+
+    #s4-bodyContainer.expandedtablesize1280 {
+        width: 1280px !important;
+    }
+
+    #OpenMexMinPopup .page-content.glyphicon-menu-hamburger {
+        top: 10px !important;
+    }
+
+    @media screen and (max-width: 1440px) and (min-width: 992px) {
+        #s4-bodyContainer.expandedtablesize100 {
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+<div ng-cloak>
+    <div class="hreflink" ng-click="Clickopenexpendpopup()">
+        <img ng-show="portfoliotype==undefined || portfoliotype=='Component'" title="Customize the width of the table"
+            class="hreflink wid14 expandtableicon"
+            ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/Shareweb/icon_Popout.png">
+        <img ng-show="portfoliotype!=undefined  && portfoliotype=='Service'" title="Customize the width of the table"
+            class="hreflink wid14 expandtableicon"
+            ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/Service_Icons/icon_Popout.png">
+        <!--<a class="hreflink">
+            Expand Table
+        </a>-->
+    </div>
+    <div id="OpenMexMinPopup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="false" style="display: none;">
+        <div class="modal-dialog modal-sm" style="width: 810px;">
+            <div class="panel panel-default table-expandsize">
+                <div class="panel-title">
+                    <button type="button" class="col-sm-1 close" ng-click="cancleopenexpendpopup()"
+                        style="min-width: 10px;width: 2%;margin-top: 4px;">
+                        &times;
+                    </button>
+                    <h3 class="col-sm-11 mt-0 pr-5" style="width: 96%;">
+                        <span class="pull-left">Expand Search Results</span>
+
+                        <span class="pull-right">
+                            <page-settings-info webpartid="'sharewebExpandPopup'"></page-settings-info>
+                        </span>
+                    </h3>
+                </div>
+                <div class="panel-body pad-5">
+                    <div class="col-sm-12 tab-content bdrbox small_undo_icon">
+                        <ul class="col-sm-12 text-center padL-0 form-group mt-10 mb-10">
+                            <li class="news_upload hreflink t-normalsize" title="">
+                                <div id="tile50" ng-click="ExpandTable('t-normalsize')"
+                                    class="content_wrap text-center ">
+                                    <div class="permission mt43 f-18">50%</div>
+                                </div>
+                            </li>
+                            <li class="news_upload hreflink t-expaned60" title="">
+                                <div id="tile60" ng-click="ExpandTable('t-expaned60')"
+                                    class="content_wrap text-center active">
+                                    <div class="permission mt43 f-18">60%</div>
+                                </div>
+                            </li>
+                            <li class="news_upload hreflink t-expaned75" title="">
+                                <div id="tile75" ng-click="ExpandTable('t-expaned75')" class="content_wrap text-center">
+                                    <div class="permission mt43 f-18">75%</div>
+                                </div>
+                            </li>
+                            <li class="news_upload hreflink t-expaned100" title="">
+                                <div id="tile100" ng-click="ExpandTable('t-expaned100')"
+                                    class="content_wrap text-center">
+                                    <div class="permission mt43 f-18">100%</div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer px-10">
+
+                    <span class="pull-right">
+                        <!-- <button type="button" class="btn btn-primary">
+                             Save
+                         </button>-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                            ng-click="cancleopenexpendpopup()">
+                            Cancel
+                        </button>
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

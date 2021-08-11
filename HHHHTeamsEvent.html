@@ -1,0 +1,46 @@
+﻿<style>
+    .hreflink.mailicontab {
+        display: none;
+    }
+</style>
+<div ng-cloak ng-if="Events!=undefined && Events.length>0">
+    <div class="panel panel-default">
+        <div class="panel-heading" title="Events">
+            <span><page-settings-info webpartinfo="webPartInfo"></page-settings-info></span>
+            <h3 class="panel-title">
+                <span>Relevant Events</span>
+            </h3>
+
+        </div>
+        <div class="panel-body" id="idEvents">
+            <div class="col-sm-12" ng-show="Events =='undefined' || Events =='null' || Events.length==0">
+                <div role="alert" class="text-center Doc-align inner-tabb">
+                    No events available
+                </div>
+            </div>
+            <div id="table-wrapper" ng-show="Events.length>0">
+                <div id="table-scroll">
+                    <table id="Projects" class="table table-hover" cellspacing="0" width="100%">
+                        <tbody>
+                            <!-- id="edit-code" -->
+                            <tr ng-repeat="item in Events" staticsite="{{item.siteType}}">
+                                <td width="25%" valign="top">
+                                    {{item.EventDate | date:'dd MMM yyyy'}}
+                                </td>
+                                <td id="td-border">
+                                    <a class="lstevents" target="_blank" ng-href="{{CurrentSiteUrl}}/SitePages/Event-detail.aspx?ItemID={{item.ID}}&Site={{item.siteType}}">
+                                        {{item.Title}}
+                                    </a>
+                                    <a ng-if="isOwner" class="hreflink padding-left display_hide" target="_blank" ng-click="editSharewebItem(item.ID, item.siteType, 'Event')">
+                                        <!---->
+                                        <img ng-src="/_layouts/images/edititem.gif">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

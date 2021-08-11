@@ -1,0 +1,47 @@
+<div ng-cloak>
+    <div class="panel panel-default">
+        <div class="panel-title">
+            <button type="button" class="close" ng-click="cancelModal()" style="min-width: 10px;">
+                &times;
+            </button>
+            <h3>
+                All Accordions
+            </h3>
+        </div>
+        <div class="modal-body"  >
+            <div class="col-sm-12 tab-content phase" style="overflow: auto;height: 400px;">
+            <div class="form-group">
+                <div ng-show="accordions =='undefined' || accordions =='null' || accordions.length==0">
+                    <div role="alert" class="text-center">
+                        No accordion available
+                    </div>
+                </div>
+                <div class=""  ng-hide="accordions =='undefined' || accordions =='null' || accordions.length==0">
+                    <div>
+                        <table id="documents" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:90%;">Title</th>
+                                    <th class="display_hide"style="width:10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in accordions">
+                                    <td classs="display_hide" style="width: 90%;" ng-bind="item.title"></td>
+                                    <td class="display_hide"  style="width:10%;">
+                                        <a class="hreflink padding-left display_hide" ng-click="editItem(item);">
+                                            <img ng-src="/_layouts/images/edititem.gif">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default mt-10" ng-click="cancelModal()">Ok</button>
+        </div>
+    </div>

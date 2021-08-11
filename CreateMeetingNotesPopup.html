@@ -1,0 +1,531 @@
+﻿<script src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<link rel="stylesheet" href="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/font-awesome.css" type="text/css">
+<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Services/froala_editor.pkgd.min.js"></script>
+<style>
+    .fr-toolbar .fr-command.fr-btn.fr-active,
+    .fr-popup .fr-command.fr-btn.fr-active {color: #1e88e5;background: 0 0;}
+    button#fullscreen-1 {position: absolute;right: 0px;border-left: 1px solid #ccc;}
+    .divPanelBody #main-menu li:hover>ul.sub-menu {display: block !important;}
+    .Prioritytp .radio,.checkbox{margin-top: 3px;margin-bottom: 3px;}
+</style>
+<!--ng-controller="CreateMeetingNoteController"-->
+<div style="width:1245px;" class="{{PortfolioType=='Service'?'taskprofilepagegreen':''}}{{PortfolioType=='Events'?'taskprofilepageorange':''}}" ng-cloak>
+    <div class="panel panel-default CreateTaskPopup">
+        <div class="panel-title">
+            <button type="button" class="close" data-dismiss="modal" ng-click="cancelItem()" style="min-width: 10px; margin-top: 2px;">
+                &times;
+            </button>
+            <span class="pull-right">
+                <page-settings-info webpartid="'CreateTaskPopup'"></page-settings-info>
+
+            </span>
+            <h3 class="modal-title">
+
+                Create {{PopUpTitle}}
+            </h3>
+
+        </div>
+        <div class="modal-body">
+            <div class="col-sm-12 panel-padding tab-content mb-10 mt-10 bdrbox">
+                <div style="margin-left: -5px;margin-right: -5px;" ng-if="WorkspaceListName==undefined && (NotesCall=='HHHH Quick' ||NotesCall=='HHHH Bug' || NotesCall=='Feedback' || NotesCall=='Design' || NotesCall=='Improvement' || NotesCall=='Implementation' || NotesCall=='Task' || NotesCall=='Activity' || NotesCall=='Bug'|| NotesCall=='Development')"
+                    class="row">
+                    <fieldset class="fieldsett">
+                        <div>
+
+                        </div>
+                        <legend>Site</legend>
+                        <span class="pull-right clear">
+                            <a ng-click="ClearSelectTasksSites()" class=" hreflink">
+                                Clear Selection<img ng-src="/_layouts/images/delete.gif">
+                            </a>
+                        </span>
+                        <ul class="quick-actions">
+                            <li ng-if="item.Title !='DRR' && item.Title !='Master Tasks'" class="bg_lb" id="{{TaskListId(item)}}" ng-repeat="item in SitesTypes">
+                                <a ng-click="SiteDetail(item);">
+                                    <span class="icon-sites">
+                                        <img class="icon-sites"
+                                             ng-if="item.Item_x005F_x0020_Cover!=undefined"
+                                             ng-src="{{item.Item_x005F_x0020_Cover.Url}}">
+                                    </span>{{item.Title}}
+                                </a>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-sm-10 padL-0">
+                        <div class="col-sm-12 mb-10">
+                            <label class="full_width">Task Name</label>
+                            <input class="form-control" type="text" ng-required="true" placeholder="Enter Task Name" ng-model="Title" />
+                        </div>
+                        <div class="col-sm-12  mb-10">
+                            <!-- <label class="full_width">Url</label>
+                            <input class="form-control" type="text" ng-required="true" placeholder="Url" ng-model="URL" /> -->
+                     
+                            <div class="col-sm-12 padL-0 PadR0 mt-10">
+                                <Team-Composition></Team-Composition>
+                            </div>
+                        </div>
+                    </div>
+
+                 
+                  <div class="col-sm-2 padL-0">
+
+                    <div class="col-sm-12 padL-0 PadR0">
+                        <label>Due Date</label>
+                        <input type="text" autocomplete="off" id="dueDatePicker" placeholder="DD/MM/YYYY" class="form-control" ng-model="DueDate" />
+                    </div>
+                
+
+                    <div class="col-sm-12 padL-0 PadR0" ng-show="PortfolioType=='Component'">
+                        <div ng-show="smartComponent.length==0" class="col-sm-11 mb-10 padL-0">
+                            <label class="full_width">Component</label>
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtSharewebComponentcrt" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </div>
+                        <div ng-show="smartComponent.length==0" class="col-sm-1 no-padding">
+                            <label class="full_width">&nbsp;</label>
+                            <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png" ng-click="EditComponent('Components',Item.SharewebComponent)">
+                            <!--ng-click="openSmartTaxonomyPopup('Components', Item.SharewebComponent);">-->
+                        </div>
+                        <div class="col-sm-12 padL-0 PadR0">
+                            <div class="col-sm-12  group-by top-assign mt-10 mb-10 padL-0 PadR0">
+                                <div class=" col-sm-11 block" ng-mouseover="HoverIn(item);" ng-mouseleave="ComponentTitle.STRING='';" title="{{ComponentTitle.STRING}}" ng-repeat="item in smartComponent track by $index">
+                                    <a class="hreflink" target="_blank" ng-href="{{CuurentSiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}">{{item.Title}}</a>
+                                    <a class="hreflink" ng-click="removeSmartComponent(item.Id)">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+                                <span ng-show="smartComponent.length!=0" class="col-sm-1">
+                                    <a class="hreflink" title="Edit Component" data-toggle="modal" ng-click="EditComponent('Components',Item.SharewebComponent)">
+                                        <!--ng-click="openSmartTaxonomyPopup('Components', Item.SharewebComponent);-->
+                                        <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 padL-0 PadR0" ng-show="PortfolioType=='Service'">
+                        <div ng-show="smartService.length==0" class="col-sm-11 mb-10 padL-0">
+                            <label class="full_width">Service</label>
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtSharewebServicecrt" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </div>
+                        <div ng-show="smartService.length==0" class="col-sm-1 no-padding">
+                            <label class="full_width">&nbsp;</label>
+                            <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png" ng-click="EditComponent('Services',Item.SharewebComponent)">
+                            <!--ng-click="openSmartTaxonomyPopup('Service', Item.SharewebComponent);">-->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12  group-by top-assign">
+                                <div class=" col-sm-11 block" ng-mouseover="HoverIn(item);" ng-mouseleave="ComponentTitle.STRING='';" title="{{ComponentTitle.STRING}}" ng-repeat="item in smartService track by $index">
+                                    <a class="hreflink" target="_blank" ng-href="{{CuurentSiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}">{{item.Title}}</a>
+                                    <a class="hreflink" ng-click="removeSmartService(item.Id)">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+                                <span ng-show="smartService.length!=0" class="col-sm-1">
+                                    <a class="hreflink" title="Edit Component" data-toggle="modal" ng-click="EditComponent('Services',Item.SharewebComponent)">
+                                        <!--ng-click="openSmartTaxonomyPopup('Service', Item.SharewebComponent);">-->
+                                        <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 padL-0 PadR0" ng-show="PortfolioType=='Events'">
+                        <div ng-show="smartEvent.length==0" class="col-sm-11 mb-10 padL-0">
+                            <label class="full_width">Event</label>
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtSharewebEventcrt" autocomplete="off"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </div>
+                        <div ng-show="smartEvent.length==0" class="col-sm-1 no-padding">
+                            <label class="full_width">&nbsp;</label>
+                            <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png" ng-click="EditComponent('Events',Item.SharewebComponent)">
+                            <!--ng-click="openSmartTaxonomyPopup('Event', Item.SharewebComponent);">-->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12  group-by">
+                                <div class=" col-sm-12 block" ng-mouseover="HoverIn(item);" ng-mouseleave="ComponentTitle.STRING='';" title="{{ComponentTitle.STRING}}" ng-repeat="item in smartEvent track by $index">
+                                    <a class="hreflink" target="_blank" ng-href="{{CuurentSiteUrl}}/SitePages/Portfolio-Profile.aspx?taskId={{item.Id}}">{{item.Title}}</a>
+                                    <a class="hreflink" ng-click="removeSmartEvent(item.Id)">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+                                <span ng-show="smartEvent.length!=0" class="ml-10">
+                                    <a class="hreflink" title="Edit Component" data-toggle="modal" ng-click="EditComponent('Events',Item.SharewebComponent)">
+                                        <!--ng-click="openSmartTaxonomyPopup('Event', Item.SharewebComponent);">-->
+                                        <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png">
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="col-sm-12 padL-0 Prioritytp PadR0">
+                        <fieldset>
+                            <label>Priority</label>
+                            <input type="text" class="form-control" placeholder="Priority" ng-model="PriorityRank" ng-change="getpriority()" />
+                            <div class="radio">
+                                <label>
+                                    <input style="margin: 3px -17px 0;" class="form-check-input" name="radioPriority"
+                                           type="radio" value="(1) High"
+                                           ng-click="SelectPriority()"
+                                           ng-model="Priority">High
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input style="margin: 3px -17px 0;" class="form-check-input" name="radioPriority"
+                                           type="radio" value="(2) Normal"
+                                           ng-click="SelectPriority()"
+                                           ng-model="Priority">Normal
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input style="margin: 3px -17px 0;"  class="form-check-input" name="radioPriority"
+                                           type="radio" value="(3) Low"
+                                           ng-click="SelectPriority()"
+                                           ng-model="Priority">Low
+                                </label>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                    <div class="col-sm-12 mb-10 padL-0 PadR0">
+                        <div ng-hide="item=='TimesheetCategories'" ng-repeat="item in filterGroups">
+                            <label>{{item}}</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-11 padding-0  ">
+                                    <input type="text" class="form-control ui-autocomplete-input" id="txtCategories" />
+                                </div>
+                                <div class="col-sm-1 no-padding">
+
+                                    <img ng-src="https://www.shareweb.ch/_layouts/15/images/EMMCopyTerm.png" ng-click="openSmartTaxonomyPopup('Categories', Item.SharewebCategories);">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mt-2">
+
+
+
+
+                                <div ng-if="item.SmartSuggestions" ng-repeat="item in AllCategories" class="col-sm-12 padL-0 checkbox">
+                                    <input ng-checked="isMainTermSelected(item)" type="checkbox" ng-click="selectRootLevelTerm(item)">
+                                    <span class="" style="margin-left: 20px;"> {{item.Title}}</span>
+                                </div>
+
+
+
+                                <div class="col-sm-12 PadR0 block" ng-repeat="item in smartCategories" ng-hide="item.Title =='Phone'||item.Title =='Email Notification'||item.Title =='Approval'">
+                                    {{item.Title}}
+                                    <a class="hreflink" ng-click="removeCategories(item.Id)">
+                                        <img ng-src="/_layouts/images/delete.gif">
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                <div class="col-sm-12  commentForAdmin padL-0 PadR0" style="width:100%" ng-cloak>
+                    <div class="col-sm-12 PadR0 padL-0">
+                        <div class="col-sm-5  padL-0 padR0">
+                            <div class="Doc-align padding-0">
+                                <div class="col-sm-5 padding-0" style="margin-bottom: -20px;">
+                                    <a style="cursor:pointer;" ng-click="addCopyPasteEditor()">Add new image</a>
+                                </div>
+                                <div ng-repeat="editor in copyPasteEditorAdminIDS" ng-show="copyPasteEditorAdminIDS.length!=0">
+                                    <label class="full_width" ng-bind-html="GetColumnDetails('copyandpastImage') | trustedHTML">
+                                        Copy & Paste
+                                        Image
+                                    </label>
+                                    <div id={{editor.copyPasteEditorAdminID}}></div>
+                                    <span>
+                                        <a ng-show="copyPasteEditorAdminIDS.length>0" style="cursor:pointer;"
+                                           title="Delete" data-toggle="modal"
+                                           ng-click="removeAddCopyPasteEditor(copyPasteEditorAdminIDS,$inde)">
+                                            <img ng-src="/_layouts/images/delete.gif" src="/_layouts/images/delete.gif">
+                                        </a>
+                                    </span>
+                                </div>
+                                <div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <shareweb-progress-bar progressBarId="'CopyPasteuploadImage'"></shareweb-progress-bar>
+                        <div class="col-sm-7 padL-0 PadR0 ">
+                            <label>Description</label>
+                          
+                            <div class="col-sm-12 padding-0 Createmeetingdes">
+
+                                <div class="forFullScreenButton" id="ShortDescription"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="SaveMeetingNotes()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelItem()">Cancel</button>
+        </div>
+    </div>
+    <div id="ManageTeamMembersPopup" class="modal fade in FeedBackIconSize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="panel panel-default">
+                <div class="panel-title">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="closeManageTeamMembersPopup()" style="min-width: 10px; margin-top: 2px;">
+                        &times;
+                    </button>
+                    <h3>
+                        Manage Team Members
+                        <span class="pull-right ">
+                            <page-settings-info webpartid="'RelevantPortfolio'"></page-settings-info>
+                        </span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 tab-content bdrbox">
+                        <div class="form-group mt-10" ui-on-drop="onDropRemoveTeam($event,$data, taskUsers)">
+                            <div class="top-assign" ng-repeat="user in taskUsers">
+                                <fieldset ng-if="user.childs.length >0" class="team">
+                                    <legend class="ng-binding">{{user.Title}}</legend>
+                                    <div class="col-sm-1 marginR41 " ng-repeat="item in user.childs">
+                                        <span ng-if="item.Item_x0020_Cover!=undefined">
+                                            <img class="AssignUserPhoto" ui-draggable="true" drag="item"
+                                                 on-drop-success="dropSuccessHandler($event, $index, user.childs)"
+                                                 title="{{item.Title}}"
+                                                 ng-src="{{item.Item_x0020_Cover.Url}}" ng-click="openTeamPage(item)" />
+                                        </span>
+                                        <span ng-if="item.Item_x0020_Cover==undefined || item.Item_x0020_Cover== null">
+                                            <!-- <img class="AssignUserPhoto" ui-draggable="true" drag="item" on-drop-success="dropSuccessHandler($event, $index, user.childs)" title="{{item.Title}}" ng-src="{{baseUrl}}/Style%20Library/Images/ContactPicture.jpg" /> -->
+                                            <div title="{{item.Title}}"
+                                                 class="text-center create title2  ng-binding"
+                                                 ng-click="loadTasks(item,item.AssingedToUserId)"
+                                                 ng-if="item.Item_x0020_Cover==undefined" ui-draggable="true"
+                                                 drag="item"
+                                                 on-drop-success="dropSuccessHandler($event, $index,  user.childs)">
+                                                {{item.Suffix}}
+                                            </div>
+                                        </span>
+
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:0px;margin-right:0px;">
+                            <div class="col-md-10 padL-0" style="padding-right:0!important;">
+                                <div class="col-sm-12 padL-0 drop-color">
+                                    <div class="col-sm-6 assignToDropPanel borderH" style="width: 464px !important;" ui-on-drop="onDropTeam($event,$data,AssignedToUsers,'TeamLeader')">
+                                        <div style="width: 100%;display: inline-flex;">
+                                            <div>
+                                                <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers)" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in AssignedToUsers"
+                                                    title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                            </div>
+                                            <div>
+                                                <img ng-if="image.userImage==undefined" ui-draggable="true" drag="image" on-drop-success="dropSuccessHandler($event, $index, AssignedToUsers)" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" title="{{image.Title}}" ng-repeat="image in AssignedToUsers"
+                                                    ng-src="{{image.Item_x0020_Cover.Url}}" ng-click="openTeamPage(image)" />
+                                            </div>
+
+                                        </div>
+                                        <span>Drag user here to assign for Team Leader ...</span>
+                                    </div>
+                                    <div class="col-sm-6 assignToDropPanel borderH" style="width: 464px !important;" ui-on-drop="onDropTeam($event,$data,TeamMemberUsers,'TeamMember')">
+                                        <div style="width: 100%;display: inline-flex;">
+                                            <div>
+                                                <img ui-draggable="true" drag="image" ng-if="image.userImage!=undefined" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers)" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in TeamMemberUsers"
+                                                    title="{{image.Title}}" ng-src="{{image.userImage}}" ng-click="openTeamPage(image)" />
+                                            </div>
+                                            <div>
+                                                <img ui-draggable="true" drag="image" ng-if="image.userImage==undefined" on-drop-success="dropSuccessHandler($event, $index, TeamMemberUsers)" data-toggle="popover" data-trigger="hover" class="ProirityAssignedUserPhoto" ng-repeat="image in TeamMemberUsers"
+                                                    ng-src="{{image.Item_x0020_Cover.Url}}" title="{{image.Title}}" ng-click="openTeamPage(image)" />
+                                            </div>
+
+                                        </div>
+                                        <span>Drag user here to assign for Team Members ...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="pageType=='PortfolioProfile'" class="col-md-2">
+                                <div class="form-group">
+                                    <div ui-on-drop="onDropRemoveTeam($event,$data, taskUsers)">
+                                        <img ng-show="ParentItem.Portfolio_x0020_Type=='Component'" title="Drag user here to  remove user from team for this Network Activity." style="height:160px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/icon_Dustbin.png"
+                                        />
+                                        <img ng-show="ParentItem.Portfolio_x0020_Type=='Service'" title="Drag user here to  remove user from team for this Network Activity." style="height:160px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Service_Icons/icon_Dustbin-green.png"
+                                        />
+                                        <img ng-show="ParentItem.Portfolio_x0020_Type=='Events'" title="Drag user here to  remove user from team for this Network Activity." style="height:160px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Event_Icons/icon_Dustbin-orange.png"
+                                        />
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div ng-show="pageType=='TaskProfile'" class="col-md-2">
+                                <div class="form-group">
+                                    <div ui-on-drop="onDropRemoveTeam($event,$data, taskUsers)">
+                                        <img ng-show="ParentItem.PortfolioTypes==undefined || ParentItem.PortfolioTypes=='Component'" title="Drag user here to  remove user from team for this Network Activity." style="height:160px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Shareweb/icon_Dustbin.png"
+                                        />
+
+                                        <img ng-show="ParentItem.PortfolioTypes=='Services'" title="Drag user here to  remove user from team for this Network Activity." style="height:160px;" ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/Service_Icons/icon_Dustbin-green.png"
+                                        />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pr-5">
+                    <button type="button" class="mt-10 btn-primary" ng-click="saveManageTeamMembers()">OK</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="SmartTaxonomyPopup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelSmartTaxonomyPopup()" style="min-width: 10px;">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        Select -{{SmartTaxonomyName}}
+                        <span class="pull-right NMt-7">
+                            <page-settings-info webpartid="'SelectCategories'">
+                            </page-settings-info>
+                        </span>
+                    </h4>
+                    <table class="ms-dialogHeader" cellspacing="0" cellpadding="0" border="0" width="100%" style="padding-top: 8px; padding-bottom: 10px;">
+                        <tbody>
+                            <tr class="">
+                                <td valign="middle" align="center" style="width:0px; padding-left: 15px; padding-right: 15px;">
+                                    <img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/EMMDoubleTag.png" alt="">
+                                </td>
+                                <td class="ms-dialogHeaderDescription" valign="top" style="width:100%;">
+                                    <div id="selectTermDescription" class="none-wordbreak">
+
+                                        <table class="ms-dialogHeaderDescription">
+                                            <tbody>
+                                                <tr id="addNewTermDescription" class="">
+                                                    <td>New items are added under the currently selected item.</td>
+
+                                                    <td class="TaggingLinkWidth">
+                                                        <a style="cursor:pointer;" ng-click="gotomanagetaxonomy();">
+                                                            Add New Item
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr id="SendFeedbackTr">
+                                                    <td>Make a request or send feedback to the Term Set manager.</td>
+                                                    <td class="TaggingLinkWidth">
+                                                        <a href="mailto:e-i@eda.admin.ch">
+                                                            Send Feedback
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td class=" pull-right">
+                                    <button type="button" class="btn btn-primary" ng-click="copySelectedSmartTaxonomy()">
+                                        OK
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 padL-0 PadR0 mb-10 mt-10">
+                        <span ng-show="SmartTaxonomyName =='Components'">
+                            <input type="text" class="form-control ui-autocomplete-input"
+                                   id="txtSharewebComponentselsction" autocomplete="off" placeholder="Search here"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </span>
+                        <span ng-show="SmartTaxonomyName =='Services'">
+                            <input type="text" class="form-control ui-autocomplete-input"
+                                   id="txtServiceSharewebComponentselsction" autocomplete="off"
+                                   placeholder="Search here"><span role="status" aria-live="polite"
+                                                                   class="ui-helper-hidden-accessible"></span>
+                        </span>
+                        <span ng-show="SmartTaxonomyName =='Events'">
+                            <input type="text" class="form-control ui-autocomplete-input"
+                                   id="txtEventComponentSelection" autocomplete="off" placeholder="Search here"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                        </span>
+                        <span ng-show="SmartTaxonomyName =='Categories'">
+                            <input type="text" class="form-control ui-autocomplete-input" id="txtCategories1"
+                                   autocomplete="off" placeholder="Search here"><span role="status" aria-live="polite"
+                                                                                      class="ui-helper-hidden-accessible"></span>
+                        </span>
+                    </div>
+
+                    <div class="col-sm-12 padL-0 PadR0">
+                        <div class="col-sm-12 ActivityBox" ng-show="SmartTaxonomyName =='Components'||SmartTaxonomyName =='Services'||SmartTaxonomyName =='Events'">
+                            <span class="block" ng-mouseover="HoverIn(item);" ng-mouseleave="ComponentTitle.STRING='';" title="{{ComponentTitle.STRING}}" ng-repeat="item in SmartCompCopy track by $index">
+                                {{item.Title}}<a class="hreflink"
+                                                 ng-click="removeEditSmartComponent(item.Id)">
+                                    <img ng-src="/_layouts/images/delete.gif">
+                                </a>
+                            </span>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="col-sm-12 ActivityBox" ng-show="SmartTaxonomyName =='Categories'">
+                            <span class="block" ng-repeat="item in smartCategories">
+                                {{item.Title}}<a class="hreflink"
+                                                 ng-click="removeCategories(item.Id)">
+                                    <img ng-src="/_layouts/images/delete.gif">
+                                </a>
+                            </span>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                    <div class="divPanelBody col-sm-12 padL-0 PadR0">
+                        <nav id="nav_pop-up">
+                            <ul id="main-menu">
+                                <li ng-repeat="item in TaxonomyItems">
+                                    <a class="hreflink" id="Smart{{item.Id}}" ng-click="selectItem(item,'Component',$index);">
+                                        <img ng-if="item.Item_x005F_x0020_Cover.Url != undefined" style="height: 12px; width:18px;" ng-src="{{item.Item_x005F_x0020_Cover.Url}}"> {{item.Title}}
+                                    </a>
+                                    <ul ng-if="item.childs.length>0" class="sub-menu clr" id="Test{{item.Id}}">
+                                        <li ng-repeat="child1 in item.childs">
+                                            <a class="hreflink" id="Bud{{child1.Id}}" ng-click="selectItem(child1,'SubComponent');">
+                                                <img ng-if="child1.Item_x005F_x0020_Cover.Url != undefined" style="height: 12px; width:18px;" ng-src="{{child1.Item_x005F_x0020_Cover.Url}}"> {{child1.Title}}
+                                            </a>
+                                            <ul ng-if="child1.childs.length>0" class="sub-menu clr2" id="Next{{child1.Id}}">
+                                                <li ng-repeat="child2 in child1.childs">
+                                                    <a class="hreflink" ng-click="selectItem(child2,'Feature');">
+                                                        <img ng-if="child2.Page_x002d_Title!=undefined && child2.ProfileType!=undefined" class="flag_icon" ng-src="{{child2.Item_x0020_Cover.Url}}"> {{child2.Title}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a class="hreflink" ng-click="gotomanagetaxonomy();">Manage Smart Taxonomy</a>
+                    <button type="button" class="btn btn-primary" ng-click="copySelectedSmartTaxonomy()">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

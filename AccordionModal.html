@@ -1,0 +1,49 @@
+
+<div ng-cloak>
+    <div class="panel panel-default">
+        <div class="panel-title">
+            <button type="button" class="close" ng-click="cancelModal()" style="min-width: 10px;">
+                &times;
+            </button>
+            <h3>
+                Generate Accordion
+            </h3>
+        </div>
+        <div class="modal-body">
+            <div class="col-sm-12 tab-content phase mb-10">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="col-sm-12 PadR0 padL-0 mt-10">
+                        <label class="col-sm-3 padL-0">Title</label>
+                        <div class="col-sm-9 PadR0 TxtEnd">
+                            <input type="checkbox" ng-model="isTitleContentBold">
+                            <label class="mr-4">Bold</label>
+                            <span class="mr-4">|</span>
+
+                            <input type="radio" ng-model="isExpanded" value="true">
+                            <label class="mar-10"> Expanded</label>
+                            <input type="radio" ng-model="isExpanded" value="false">
+                            <label>Collapse</label>
+                        </div>
+                    </div>
+                    <input type="text" ng-style="titleStyle" class="form-control" ng-model="title" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="full_width">Description</label>
+                    <textarea rows="6" class="full_width ng-pristine ng-untouched ng-valid ng-empty" ro="" id="addDescription" ng-model="description">
+                    </textarea>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="isEditable?editIntoEditor():insertIntoEditor()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
+        </div>
+    </div>
+
+</div>

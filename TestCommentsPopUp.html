@@ -1,0 +1,110 @@
+﻿<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Templates/TestCommentsPopUp.js"></script>
+<div id="ShowAllCommentsId">
+	<div class="" ng-cloak>
+		<div class="panel-title">
+			<button type="button" class="close" data-dismiss="modal" ng-click="CancelComments()" style="min-width: 10px;">&times;</button>
+			<h3>All Comments:</h3>
+		</div>
+		
+<div class="panel-body" style="padding:0px 5px !important;">
+<div id="ShowAllComments">
+    <div >
+        <div >
+            <ng-form name="FeedbackForm" novalidate role="form">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <ng-form name="EditForm" novalidate role="form">
+                        <div class="overflow400 form-group" style="max-height:430px; overflow-y:auto;" >
+                            <!-- <strong> -->
+                                <!-- <span style="font-size:24px;"></span> All Comments: -->
+                            <!-- </strong> -->
+                            <div class="col-sm-offset-1 col-sm-10 mb-2 add_cmnt" ng-repeat="comment in Feedback.Comments">
+                                <div id="public-item">
+                                    <div class="col-sm-2 left_Allcomment">
+                                        <img  title="{{comment.AuthorName}}" data-toggle="popover" data-trigger="hover"  ng-src="{{comment.AuthorImage}}">
+                                    </div>
+                                    <div class="col-sm-10 comment-header">
+                                        <div class="row">
+                                            <div class="changing-width" ng-if="comment.AuthorImage==undefined">{{comment.AuthorName}} <span>-</span></div>
+                                            <div class="col-sm-3 no-padding" ng-if="comment.editableItem==true">
+                                                <select class="searchbox_height drop" ng-model="comment.AuthorName" ng-change="selectUser(comment,comment.AuthorName)">
+                                                    <option comment.AuthorName={{user.Title}} ng-repeat="user in taskUsers">{{user.Title}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-8 no-padding comment-header" >
+                                                <div class="col-sm-8 no-padding comment-header">
+                                                    {{comment.Created | date:'dd MMM yyyy hh:mm'}}
+													<span>
+													<a class="hreflink" ng-click="editcommentItem(comment);"><img style="width:15px;" ng-src="/_layouts/images/edititem.gif"></a>
+                                                <a class="hreflink" title="Delete" ng-click="removeComment(Feedback.Comments,$index)"><img style="width:15px;" ng-src="/_layouts/images/delete.gif"></a>
+                                                
+													</span>
+                                                </div>
+                                                <!-- <div class="col-sm-8 " ng-if="comment.editableItem==true"> -->
+                                                    <!-- <datetimepicker ng-model="comment.Created" ng-click="binddroplist()" -->
+                                                                    <!-- date-format="{{format}}" -->
+                                                                    <!-- name="datetimepicker" -->
+                                                                    <!-- hidden-time="true" show-weeks="false" show-button-bar="false"></datetimepicker> -->
+                                                <!-- </div> -->
+                                                 </div>
+                                        </div>
+                                        <div class="right_comment">
+                                            <div  class="complete_dashboard " ng-bind-html="comment.Title | trustedHTML"></div>
+                                            <textarea style="overflow:hidden;" ng-if="comment.editableItem==true" rows="2" class="form-control" ng-model="comment.Title"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       
+						
+						</div>
+                        <div class="col-sm-12 mb-5 mt-2 ">
+                            <div class="col-sm-offset-1 col-sm-9 ">
+                                <input ng-model='Feedback.comment' style="width:94%;height: 35px;" ng-required="true" type="text" placeholder='type Comment here' />
+                            </div>
+                            <div class="col-sm-1 ">
+                                <button type="button" class="btn btn-primary pull-right" ng-disabled="FeedbackForm.$error.required" ng-click="PostFeedback(Feedback)">Post</button>
+                            </div>
+                        </div>
+                    </ng-form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="CancelComments()" title="Discard unsaved changes & exit">Cancel</button>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+<div id="Updatecomments" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-help">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancelCommentPopUp()" style="min-width: 10px;">&times;</button>
+                <h4 class="modal-title">Update Comment</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: hidden;">
+                <div class="" style="padding-top:15px;">
+                    <div class="col-md-12">
+                        <div id="UpdatecommentsItem"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:1px solid transparent;">
+                <div>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-click="saveUpdateComment()">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelCommentPopUp()">Cancel</button>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+		

@@ -1,0 +1,9 @@
+﻿  <script src="https://www.shareweb.ch/site/Joint/Style%20Library/Shareweb/Templates/Breadcrumb.js"></script>
+  
+<div class="col-sm-12 Breadcrumb padL-0">
+<div class="{{BreadcrumbClass}}">
+ <ul class="DisplayInline"><li  ng-repeat="item in Breadcrumb | orderBy:'$index':true"><a ng-href="{{item.Url}}">{{item.Title}}</a>  <span  ng-if="item.Url != undefiend">  >  </span> </li></ul>
+ 
+</div>
+</div>
+

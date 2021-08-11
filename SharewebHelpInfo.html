@@ -1,0 +1,157 @@
+﻿<style>
+    .selectedView {
+        background: #eee;
+        padding: 4px;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #069 !important;
+        background-color: #eee !important;
+        padding: 14px 12px 6px !important;
+    }
+
+    .close:hover, .close:focus {
+        color: #069 !important;
+    }
+
+    .modal-title {
+        color: #069 !important;
+        font-weight: bold !important;
+    }
+
+    button.close {
+        padding: 2px;
+    }
+
+    .contact-form {
+        margin-top: 22px;
+    }
+
+        .contact-form .textarea {
+            min-height: 220px;
+            resize: none;
+        }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #00b09c;
+    }
+
+    .form-control-feedback {
+        line-height: 50px;
+    }
+
+    .main-btn {
+        background: #00b09c;
+        border-color: #00b09c;
+        color: #fff;
+    }
+
+        .main-btn:hover {
+            background: #00a491;
+            color: #fff;
+        }
+
+    .form-control-feedback {
+        line-height: 50px;
+        top: 0px;
+    }
+
+    #head {
+        padding-top: 16px !important;
+        font-weight: bold !important;
+        margin-left: 15px !important;
+        font-size: 18px !important;
+        text-align: left !important;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    #form-brdr:active {
+        border: 1px solid #069 !important;
+    }
+
+    #form-brdr {
+        border: 1px solid #a6a6a6;
+    }
+    .panel-url {
+        padding-left: 0px;
+        font-size: 16px;
+        margin-top: 0px;
+    }
+        .dropdown-menu > li > a {
+        display: inline;
+    }
+
+        .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: transparent;
+        }
+   .container h4 {
+        font-size:16px;
+        font-weight:bold;
+    }
+    .container-new {
+        overflow-y: auto;
+        max-height: 500px;
+        border-top: 1px solid #ccc;
+    }
+.table tbody > tr > td, .table thead > tr > th {
+            font-size: 14px;
+        }
+</style>
+<!--<span id="new" class="glyphicon glyphicon-menu-hamburger pull-right" style="cursor:pointer;"></span>-->
+<div ng-cloak>
+	<div class="panel panel-default" ng-cloak>
+		<ng-form name="SharewebHelpInfo" novalidate role="form">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="cancelHelpInfoPopup();" style="min-width: 10px;">&times;</button>
+				<h3 class="modal-title">
+					Help Information - {{$root.webpartinfo.Title}} <a ng-show="isOwner" class="hreflink" ng-click="EditHelpInfoDescription()">
+						<img src="/_layouts/images/edititem.gif">
+					</a>
+				</h3>
+			</div>
+			<div class="panel-body tab-content">
+				<div id="table-wrapper">
+					<div id="table-scroll">
+						<div class="form-group inner-tabb col-sm-12">
+							<div class="modal-body" style="min-height:400px;">
+								<span ng-bind-html="$root.webpartinfo.PublishingPageContent | trustedHTML">
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click="cancelHelpInfoPopup()">OK</button>
+			</div>
+		</ng-form>
+		<!--// update help-->
+
+	</div>
+	<div id="updateHelpPopUp" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+		<div class="modal-dialog" id="update">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Update - Help Information</h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<div class="forFullScreenButton" id="updateHelpBody"></div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="UpdateHelpPopup()" title="Save changes & exit">Save</button>
+					<button type="button" class="btn btn-default" ng-click="CancelHelpPopup()" title="Discard unsaved changes & exit">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
