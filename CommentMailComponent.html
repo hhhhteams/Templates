@@ -57,8 +57,8 @@
                     <div class="DashboardpublicationItem commentsuggestionspace"
                          ng-repeat="item in AllCommentDetails.Comments|limitTo: -1 |orderBy:'ID':true ">
                         <div class="row mb-5 no-padding mt-5">
-                            <div ng-show="item.AuthorId ==20" class="col-sm-2 PadR0">
-                                <img ng-show="item.AuthorImage==undefined" class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
+                            <div ng-show="item.AuthorId ==20 || item.AuthorImage==undefined" class="col-sm-2 PadR0">
+                                <img  class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
                                      src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_user.jpg">
                             </div>
                             <div ng-show="item.AuthorId !=20 && item.AuthorImage!=undefined" class="col-sm-2 PadR0">
