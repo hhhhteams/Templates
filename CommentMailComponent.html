@@ -58,10 +58,10 @@
                          ng-repeat="item in AllCommentDetails.Comments|limitTo: -1 |orderBy:'ID':true ">
                         <div class="row mb-5 no-padding mt-5">
                             <div ng-show="item.AuthorId ==20" class="col-sm-2 PadR0">
-                                <img class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
+                                <img ng-show="item.AuthorImage==undefined" class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
                                      src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_user.jpg">
                             </div>
-                            <div ng-show="item.AuthorId !=20" class="col-sm-2 PadR0">
+                            <div ng-show="item.AuthorId !=20 && item.AuthorImage!=undefined" class="col-sm-2 PadR0">
                                 <img class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
                                      data-toggle="popover" data-trigger="hover" ng-src="{{item.AuthorImage}}">
                             </div>
@@ -103,11 +103,11 @@
                          ng-repeat="item in AllCommentDetails.OtherComments|limitTo: -3 |orderBy:'NewestCreatedDate':true">
                         <div class="row" style="padding:5px;">
                             <div class="col-sm-2 PadR0">
-                                <img class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
+                                <img ng-show="item.AuthorImage!=undefined" class="AssignUserPhoto1 bdrbox" title="{{item.AuthorName}}"
                                      data-toggle="popover" data-trigger="hover" ng-src="{{item.AuthorImage}}">
-                                <!--<img ng-show="item.AuthorId==20"  style="width:100%;padding-left:5px;" title="{{item.AuthorName}}"
+                                <img ng-show="item.AuthorId==20 || item.AuthorImage==undefined"  style="width:100%;padding-left:5px;" title="{{item.AuthorName}}"
                                  data-toggle="popover" data-trigger="hover"
-                                 ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_user.jpg">-->
+                                 ng-src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/SiteCollectionImages/ICONS/32/icon_user.jpg">
                             </div>
                             <div class="col-sm-10 no-padding">
                                 <div class="" style="color:#069;">
